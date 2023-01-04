@@ -1,0 +1,74 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level_2.tmj",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "level_1.jaso.tmx": {
+            "scale": 0.42,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 961.9047619047618,
+                "y": 640.4761904761905
+            }
+        },
+        "level_1.tmj": {
+            "scale": 0.3367,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 960.7959607959607,
+                "y": 641.5206415206414
+            }
+        },
+        "level_1.tmx": {
+            "scale": 0.42947916666666663,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 961.6298811544992,
+                "y": 640.310453553238
+            }
+        },
+        "level_2.tmj": {
+            "scale": 0.2594,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1193.1380107941404,
+                "y": 1202.7756360832689
+            }
+        },
+        "tile.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/Users/yanshaoting/PycharmProjects/MLGame/games/dont_touch/src/map",
+    "last.imagePath": "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/asset",
+    "map.height": 40,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 40,
+    "openFiles": [
+        "tile.tsx",
+        "level_1.tmj",
+        "level_2.tmj"
+    ],
+    "project": "level1.tiled-project",
+    "recentFiles": [
+        "tile.tsx",
+        "level_1.tmj",
+        "level_2.tmj",
+        "level_1.tmx",
+        "level_1.jaso.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}

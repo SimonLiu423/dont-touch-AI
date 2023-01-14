@@ -11,12 +11,17 @@ def count_position(vertices):
     return position
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, vertices, world):
+    def __init__(self, game, vertices, world):
         pygame.sprite.Sprite.__init__(self)
+        self.game = game
         self.world = world
         self.x, self.y = (0, 0)
-        self.body = self.world.CreateKinematicBody(position = (0, 0))
-        self.box = self.body.CreatePolygonFixture(box = ((32/ (2*PPM), 32/ (2*PPM))), vertices = vertices)
+        self.body = world.CreateKinematicBody(position = (0, 0))
+        self.box = self.body.CreatePolygonFixture(box = ((TILESIZE/ (2*PPM), TILESIZE/ (2*PPM))), vertices = vertices)
+        vertices = [(self.body.transform * v) for v in self.box.shape.vertices]
+        self.vertices = [self.game.trnsfer_box2d_to_pygame(v) for v in vertices]
+        # print(self.vertices)
+        self.rect = pygame.Rect(self.vertices[2], (self.vertices[0][0] - self.vertices[2][0], self.vertices[0][1]-self.vertices[1][1]))
 
 class VerticalMoveWall(Wall):
     def __init__(self, game, vertices, world, velocity, distance=None):

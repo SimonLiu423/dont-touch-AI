@@ -1,6 +1,6 @@
 import pygame
 import json
-from .env import PPM
+from .env import PPM, HEIGHT
 
 
 # Map 讀取地圖資料
@@ -137,16 +137,20 @@ class TiledMap_box2d:
         return (coordinate[0] * PPM, coordinate[1] * PPM)
 
     def load_other_obj(self):
-        obj = {"car":0,
-               "end_point":0}
+        obj = {"car": None,
+               "end_point": None,
+               "check_point": []}
         for i in range(len(self.data)):
             if self.data[i][2] == 1:
                 continue
-            elif self.data[i][2] in (6,  10, 11, 12, 13):
+            elif self.data[i][2] in (6, 10, 11, 12, 13):
                 obj["car"] = self.data[i]
             elif self.data[i][2] == 7:
                 obj["end_point"] = self.data[i]
+            elif self.data[i][2] == 8:
+                obj["check_point"].append(self.data[i])
         return obj
+
 
     def print_data(self):
         print("width", self.width)

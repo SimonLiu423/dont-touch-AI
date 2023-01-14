@@ -8,8 +8,8 @@ class Point(pygame.sprite.Sprite):
         self.group = game.all_points
         pygame.sprite.Sprite.__init__(self, self.group)
         self.game = game
-        self.x, self.y = (coordinate[0] - TILESIZE / PPM, -coordinate[1] + TILESIZE / PPM)
-        # self.x, self.y = (coordinate[0] + TILESIZE / (2 * PPM), -coordinate[1] - TILESIZE / (2 * PPM))
+        # self.x, self.y = (coordinate[0] - TILESIZE / PPM, -coordinate[1] + TILESIZE / PPM)
+        self.x, self.y = (coordinate[0], coordinate[1])
 
     def get_info(self):
         return {
@@ -73,7 +73,7 @@ class Check_point(Point):
                       "y": self.rect.y,
                       "width": 60,
                       "height": 60,
-                      "color": RED,
+                      "color": "#ADADAD",
                       "angle": 0}
         return asset_data
 

@@ -1,3 +1,4 @@
+from mlgame.view.view_model import create_asset_init_data
 from .math_function import cross_point_dot
 import math
 
@@ -9,15 +10,17 @@ from .env import *
 class Car(pygame.sprite.Sprite):
     def __init__(self, world, coordinate: tuple, car_no: int, sensor_num, angle: int):
         pygame.sprite.Sprite.__init__(self)
+        self.image_name = 0
+        self.collide_frame = -100
+        self.collide_times = 0
         self.car_no = car_no  # From 0 to 5
-        self.size = (50, 40)  # car size
+        self.size = (40, 42)  # car size
         self.is_completed = False
         self.end_frame = 0
         self.origin_image = pygame.transform.scale(
-            pygame.image.load(path.join(IMAGE_DIR, "car_01.png")), self.size)
-        # self.origin_image = pygame.Surface(self.size)
+            pygame.image.load(path.join(ASSET_IMAGE_DIR, "car0.png")),
+            self.size)
         self.image = self.origin_image  # after rotate
-        # self.image.fill((255, 50, 50))
         self.rect = self.image.get_rect()
         self.is_running = True
         self.status = "GAME_ALIVE"
@@ -31,14 +34,20 @@ class Car(pygame.sprite.Sprite):
         self.rect.center = (0, 0)  # pygame
         self.x, self.y = coordinate
         self.body = world.CreateDynamicBody(position=coordinate)
-        self.box = self.body.CreatePolygonFixture(box=(1.13, 1.13), density=1, friction=0.1, restitution=0.3)
+        self.box = self.body.CreatePolygonFixture(box=(1, 1), density=1, friction=0.1, restitution=0.3)
         self.sensor = Sensor(world, self.body, sensor_num, angle)
         self.body.angle = math.pi * angle
         self.check_point = 0
+        self.explotion = False
 
     def update(self, commands):
         self.image = pygame.transform.rotate(self.origin_image, (self.body.angle * 180 / math.pi) % 360)
         self.rect = self.image.get_rect()
+        if self.explotion:
+            self.image_name += 1
+            if self.image_name == 70:
+                self.image_name = 0
+                self.explotion = False
         if self.is_running and commands != None:
             if commands['right_PWM'] > 255:
                 self.R_PWM = 255
@@ -54,9 +63,15 @@ class Car(pygame.sprite.Sprite):
                 self.L_PWM = commands['left_PWM']
             self.left_move(self.L_PWM)
             self.right_move(self.R_PWM)
-            # self.body.position[1] += 0.1
         else:
             self.body.linearVelocity = (0, 0)
+
+    def collide(self, frame):
+        if frame - self.collide_frame > 120:
+            self.collide_times += 1
+            self.collide_frame = frame
+            self.explotion = True
+
 
     def detect_distance(self, frame, walls):
         sensor_value = self.sensor.update(frame, walls)
@@ -70,16 +85,13 @@ class Car(pygame.sprite.Sprite):
         if pwm < 0:
             self.sensor.sensor_left.linearVelocity = self.body.GetWorldVector(localVector=(0, -(abs(pwm) ** 0.5)))
         else:
-            self.sensor.sensor_left.linear_velocity = self.body.GetWorldVector(localVector=(0, pwm ** 0.5))
+            self.sensor.sensor_left.linearVelocity = self.body.GetWorldVector(localVector=(0, pwm ** 0.5))
 
     def right_move(self, pwm: int):
         if pwm < 0:
             self.sensor.sensor_right.linearVelocity = self.body.GetWorldVector(localVector=(0, -(abs(pwm) ** 0.5)))
         else:
-            # self.sensor.sensor_right.linearVelocity = self.body.GetWorldVector(localVector=(0, pwm ** 0.5))
-            self.sensor.sensor_right.applyForce = self.body.GetWorldVector(localVector=(0, pwm ** 0.5))
-            # print(self.sensor.sensor_right.applyForce, self.sensor.sensor_right.position)
-            # print(pwm, self.body.position)
+            self.sensor.sensor_right.linearVelocity = self.body.GetWorldVector(localVector=(0, pwm ** 0.5))
 
     def get_info(self):
         self.car_info = {"id": self.car_no,
@@ -101,5 +113,7 @@ class Car(pygame.sprite.Sprite):
                          "L_PWM": self.L_PWM,
                          "R_PWM": self.R_PWM,
                          "end_frame": self.end_frame,
+                         "image":f"car{self.image_name//10}",
+                         "crash_times":self.collide_times
                          }
         return self.car_info

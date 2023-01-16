@@ -6,7 +6,11 @@
     "activeFile": "level_2.tmj",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/tile.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj": {
             "scale": 0.2619921875,
             "selectedLayer": 0,
@@ -14,6 +18,9 @@
                 "x": 1341.643059490085,
                 "y": 1253.854182197704
             }
+        },
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/tile.tsx": {
+            "scaleInDock": 1
         },
         "level_1.jaso.tmx": {
             "scale": 0.42,
@@ -24,11 +31,11 @@
             }
         },
         "level_1.tmj": {
-            "scale": 0.3367,
+            "scale": 0.2296,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 960.7959607959608,
-                "y": 641.5206415206414
+                "x": 1101.9163763066201,
+                "y": 884.1463414634146
             }
         },
         "level_1.tmx": {
@@ -43,8 +50,8 @@
             "scale": 0.2594,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1085.1966075558983,
-                "y": 1318.4271395528142
+                "x": 1241.326137239784,
+                "y": 1341.557440246723
             }
         },
         "tile.tsx": {
@@ -52,22 +59,21 @@
             "scaleInEditor": 1
         }
     },
+    "last.externalTilesetPath": "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map",
     "map.height": 40,
     "map.lastUsedFormat": "json",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "map.width": 40,
     "openFiles": [
-        "tile.tsx",
-        "level_1.tmj",
         "level_2.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
         "level_2.tmj",
-        "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",
-        "tile.tsx",
         "level_1.tmj",
+        "tile.tsx",
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",
         "level_1.tmx",
         "level_1.jaso.tmx"
     ]

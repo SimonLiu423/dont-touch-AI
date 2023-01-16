@@ -14,7 +14,7 @@ class Car(pygame.sprite.Sprite):
         self.collide_frame = -100
         self.collide_times = 0
         self.car_no = car_no  # From 0 to 5
-        self.size = (40, 42)  # car size
+        self.size = (40, 40)  # car size
         self.is_completed = False
         self.end_frame = 0
         self.origin_image = pygame.transform.scale(

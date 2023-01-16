@@ -47,16 +47,20 @@ class MazeMode(GameMode):
         self.new()
         '''sound'''
         self.sound_controller = SoundController(sound_controller)
+        # self.world.contactListener.fixtureA = self.car
+        # print(self.world.contactListener.m_contactList)
 
     def new(self):
         # initialize all variables and do all setup for a new game
         self.pygame_point = [10, 100]
         map = TiledMap_box2d(path.join(MAP_DIR, self.map_file), 32)
         walls = map.get_wall_info()
+        # self.contact.fixtureA = self.car.box
         for wall in walls:
             vertices = map.transfer_to_box2d(wall)
             wall = Wall(self, vertices, self.world)
             self.walls.add(wall)
+            # self.contact.fixtureB = wall.box
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -82,6 +86,7 @@ class MazeMode(GameMode):
             car.detect_distance(self.frame, self.wall_info)
 
         self.all_points.update()
+        # print(self.contact.touching())
         collide_lst = pygame.sprite.spritecollide(self.car, self.walls, False)
         if collide_lst:
             self.car.collide(self.frame)
@@ -127,7 +132,12 @@ class MazeMode(GameMode):
             self.map = Map(path.join(map_folder, self.map_file))
 
     def _init_world(self, user_no: int):
-        self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False)
+        self.contact_man = Box2D.b2ContactManager()
+        self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
+        # self.contact = Box2D.b2Contact()
+        # self.contact_man.Destroy()
+        c = Box2D.b2Contact()
+        print(c)
 
 
     def _is_game_end(self):

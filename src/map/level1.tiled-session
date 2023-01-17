@@ -6,6 +6,7 @@
     "activeFile": "level_2.tmj",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj": {
             "scale": 0.2619921875,
@@ -24,11 +25,11 @@
             }
         },
         "level_1.tmj": {
-            "scale": 0.3367,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 960.7959607959608,
-                "y": 641.5206415206414
+                "x": 796,
+                "y": 1160
             }
         },
         "level_1.tmx": {
@@ -43,8 +44,8 @@
             "scale": 0.2594,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1085.1966075558983,
-                "y": 1318.4271395528142
+                "x": 1198.9205859676174,
+                "y": 1283.7316885119508
             }
         },
         "tile.tsx": {
@@ -52,6 +53,7 @@
             "scaleInEditor": 1
         }
     },
+    "last.imagePath": "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/asset",
     "map.height": 40,
     "map.lastUsedFormat": "json",
     "map.tileHeight": 64,
@@ -64,11 +66,16 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "level_1.tmj",
+        "tile.tsx",
         "level_2.tmj",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",
-        "tile.tsx",
-        "level_1.tmj",
         "level_1.tmx",
         "level_1.jaso.tmx"
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
 }

@@ -51,18 +51,18 @@ class MazeCar(PaiaGame):
         for car in self.game_mode.car_info:
             # type of car is dictionary
             player_info[get_ai_name(int(car["id"]))] = {"frame": scene_info["frame"],
-                                                             "status": car["status"],
-                                                             "x": car["coordinate"][0],
-                                                             "y": car["coordinate"][1],
-                                                             "angle": (car["angle"] * 180 / math.pi) % 360,
-                                                             "R_sensor": car["r_sensor_value"]["distance"],
-                                                             "L_sensor": car["l_sensor_value"]["distance"],
-                                                             "F_sensor": car["f_sensor_value"]["distance"],
-                                                             "L_T_sensor": car["l_t_sensor_value"]["distance"],
-                                                             "R_T_sensor": car["r_t_sensor_value"]["distance"],
-                                                             "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
-                                                             "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
-                                                             }
+                                                        "status": car["status"],
+                                                        "x": car["coordinate"][0],
+                                                        "y": car["coordinate"][1],
+                                                        "angle": (car["angle"] * 180 / math.pi) % 360,
+                                                        "R_sensor": car["r_sensor_value"]["distance"],
+                                                        "L_sensor": car["l_sensor_value"]["distance"],
+                                                        "F_sensor": car["f_sensor_value"]["distance"],
+                                                        "L_T_sensor": car["l_t_sensor_value"]["distance"],
+                                                        "R_T_sensor": car["r_t_sensor_value"]["distance"],
+                                                        "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
+                                                        "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
+                                                        }
         return player_info
 
     def reset(self):
@@ -103,9 +103,10 @@ class MazeCar(PaiaGame):
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
         for i in range(0, 7):
             game_info["assets"].append(create_asset_init_data(f"car{i}", 50, 50,
-                                                          path.join(ASSET_IMAGE_DIR, f"car{i}.png"), "url"))
+                                                              path.join(ASSET_IMAGE_DIR, f"car{i}.png"), "url"))
 
         return game_info
+
     @check_game_progress
     def get_scene_progress_data(self) -> dict:
         """
@@ -115,7 +116,7 @@ class MazeCar(PaiaGame):
             "frame": self.frame_count,
             "background": [],
             "object_list": [],
-            "toggle_with_bias":[],
+            "toggle_with_bias": [],
             "toggle": [],
             "foreground": [],
             "user_info": [],
@@ -147,12 +148,16 @@ class MazeCar(PaiaGame):
                 create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 50, 40,
                                        car["angle"])
             )
-        # game_progress["object_list"].append(create_rect_view_data("car_r", car))
+        # game_progress["object_list"].append(
+        #     create_rect_view_data("car_r", self.game_mode.car.rect.x, self.game_mode.car.rect.y, self.game_mode.car.rect.width,
+        #                           self.game_mode.car.rect.height, RED))
 
         # text
-        game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
+        game_progress["toggle"].append(
+            create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
         for car in self.game_mode.car_info:
-            game_progress["toggle"].append(create_text_view_data(f"crash time:{car['crash_times']}", 820, 130, WHITE, font_style="26px Arial"))
+            game_progress["toggle"].append(
+                create_text_view_data(f"crash time:{car['crash_times']}", 820, 130, WHITE, font_style="26px Arial"))
             x = 900
 
             if car["is_running"]:
@@ -206,7 +211,8 @@ class MazeCar(PaiaGame):
                                           "#FF0000", 5))
             else:
                 game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
-                                                                     x-48, 178 + 30 + 105 * (car["id"] // 2), "#FFFFFF",
+                                                                     x - 48, 178 + 30 + 105 * (car["id"] // 2),
+                                                                     "#FFFFFF",
                                                                      "16px Arial"))
 
         return game_progress
@@ -223,7 +229,6 @@ class MazeCar(PaiaGame):
         for ranking in self.game_mode.ranked_user:
             for user in ranking:
                 if self.game_mode.check_point_num:
-
                     pass_percent = round(user.check_point / self.game_mode.check_point_num, 5) * 100
                     remain_point = self.game_mode.check_point_num - user.check_point
                     remain_percent = 100 - pass_percent
@@ -252,6 +257,7 @@ class MazeCar(PaiaGame):
                              "remain_points": remain_point,
                              "pass_percent": pass_percent,
                              "remain_percent": remain_percent,
+                             "score": (user.end_frame + 120 * user.collide_times) * 100 + user.check_point
                              }
                 rank.append(same_rank)
 
@@ -313,9 +319,8 @@ class MazeCar(PaiaGame):
 
     def set_game_mode(self):
         self.game_mode = MazeMode(self.user_num, self.maze_id + 1, self.game_end_time, self.sensor_num,
-                                      self.is_sound)
+                                  self.is_sound)
         self.game_type = "MAZE"
-
 
     def trnsfer_box2d_to_pygame(self, coordinate):
         '''

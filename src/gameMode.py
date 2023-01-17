@@ -76,7 +76,7 @@ class GameMode(object):
         user_check_point = []
         for car in self.eliminated_user:
             if car.is_completed:
-                user_end_frame.append(car.end_frame)
+                user_end_frame.append(car.end_frame + car.collide_times * 120)
                 completed_game_user.append(car)
             else:
                 user_check_point.append(car.check_point)
@@ -263,6 +263,7 @@ class GameMode(object):
         o = obj["check_point"]
         for p in o:
             check_point = Check_point(self, (p[1], p[0]))
+            self.check_point_num += 1
         # self.end_point = End_point(self, (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE)))
         o = obj["car"]
         if o[2] == 6 or o[2] == 10:

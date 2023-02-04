@@ -1,11 +1,11 @@
 # Don't Touch
 
-![Maze_Car](https://img.shields.io/github/v/tag/yen900611/Maze_Car)
+![Dont_touch](https://img.shields.io/github/v/tag/yen900611/Dont_touch)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![MLGame](https://img.shields.io/badge/MLGame->9.5.3.*-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
-在錯綜復雜的棋盤迷宮中，如何讓你的自走車突破重圍，走到出口，而不會迷失在其之中。本遊戲也提供多元的關卡，隨著遊戲難度提升，迷宮的牆壁可是會移動，考驗各位玩家如何再多變的環境下，依然能夠逃出迷宮。
+不要碰！
 
 ![](https://i.imgur.com/uDn6Foi.gif)
 
@@ -20,7 +20,7 @@
 ```python
 # main.py
 
-game = MazeCar.MazeCar(user_num=1, game_type="MAZE", map=4, time=200, sensor=3, sound=SOUND_OFF)`
+game = Dont_touch.Dont_touch(user_num=1, map=1, time=200, sensor=3, sound="on")`
 ```
 
 - `user_num`：玩家數量，目前僅接受1位玩家。
@@ -72,7 +72,7 @@ game = MazeCar.MazeCar(user_num=1, game_type="MAZE", map=4, time=200, sensor=3, 
 
 
     - 自走車 12.5 x 10cm
-    - 檢查點 15 x 15cm
+    - 檢查點 20 x 20cm
     - 終點 15 x 15cm
 4. 座標系統
     

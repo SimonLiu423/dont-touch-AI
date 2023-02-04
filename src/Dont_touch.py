@@ -60,6 +60,7 @@ class Dont_touch(PaiaGame):
                                                         "F_sensor": car["f_sensor_value"]["distance"],
                                                         "L_T_sensor": car["l_t_sensor_value"]["distance"],
                                                         "R_T_sensor": car["r_t_sensor_value"]["distance"],
+                                                        "crash_times": car["crash_times"],
                                                         "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
                                                         "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
                                                         }

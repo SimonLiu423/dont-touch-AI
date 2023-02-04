@@ -1,8 +1,8 @@
 import sys
 from os import path
 sys.path.append(path.dirname(__file__))
-from src.MazeCar import MazeCar
+from src.Dont_touch import Dont_touch
 
 GAME_SETUP = {
-    "game": MazeCar
+    "game": Dont_touch
 }

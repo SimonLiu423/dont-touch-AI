@@ -54,7 +54,7 @@ class End_point(Point):
 class Check_point(Point):
     def __init__(self, game, coordinate):
         Point.__init__(self, game, coordinate)
-        self.rect = pygame.Rect(self.x, self.y, TILESIZE * 3, TILESIZE * 3)
+        self.rect = pygame.Rect(self.x, self.y, TILESIZE * 4, TILESIZE * 4)
         self.car_has_hit = []
 
     def update(self, *args, **kwargs) -> None:
@@ -71,8 +71,8 @@ class Check_point(Point):
         asset_data = {"type": "rect",
                       "x": self.rect.x,
                       "y": self.rect.y,
-                      "width": 60,
-                      "height": 60,
+                      "width": 80,
+                      "height": 80,
                       "color": "#ADADAD",
                       "angle": 0}
         return asset_data

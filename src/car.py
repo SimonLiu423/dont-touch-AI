@@ -10,7 +10,7 @@ from .env import *
 class Car(pygame.sprite.Sprite):
     def __init__(self, world, coordinate: tuple, car_no: int, sensor_num, angle: int):
         pygame.sprite.Sprite.__init__(self)
-        self.image_name = 0
+        self.image_name = 9
         self.collide_frame = -100
         self.collide_times = 0
         self.car_no = car_no  # From 0 to 5
@@ -46,7 +46,7 @@ class Car(pygame.sprite.Sprite):
         if self.explotion:
             self.image_name += 1
             if self.image_name == 70:
-                self.image_name = 0
+                self.image_name = 9
                 self.explotion = False
         if self.is_running and commands != None:
             if commands['right_PWM'] > 255:

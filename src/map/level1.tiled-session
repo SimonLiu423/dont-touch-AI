@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_2.tmj",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -28,8 +28,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 796,
-                "y": 1160
+                "x": 1504,
+                "y": 1292
             }
         },
         "level_1.tmx": {
@@ -44,8 +44,8 @@
             "scale": 0.2594,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1198.9205859676174,
-                "y": 1283.7316885119508
+                "x": 1283.7316885119506,
+                "y": 1260.6013878180415
             }
         },
         "tile.tsx": {
@@ -60,15 +60,14 @@
     "map.tileWidth": 64,
     "map.width": 40,
     "openFiles": [
-        "tile.tsx",
-        "level_1.tmj",
-        "level_2.tmj"
+        "level_2.tmj",
+        "level_1.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "level_2.tmj",
         "level_1.tmj",
         "tile.tsx",
-        "level_2.tmj",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",
         "level_1.tmx",
         "level_1.jaso.tmx"

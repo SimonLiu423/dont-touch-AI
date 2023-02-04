@@ -10,7 +10,7 @@ from .sound_controller import *
 '''need some fuction same as arkanoid which without dash in the name of fuction'''
 
 
-class MazeCar(PaiaGame):
+class Dont_touch(PaiaGame):
     def __init__(self, user_num, game_type, map, time_to_play, sensor_num, sound, *args, **kwargs):
         super().__init__(user_num=user_num)
         self.game_type = game_type
@@ -257,7 +257,7 @@ class MazeCar(PaiaGame):
                              "remain_points": remain_point,
                              "pass_percent": pass_percent,
                              "remain_percent": remain_percent,
-                             "score": (user.end_frame + 120 * user.collide_times) * 100 + user.check_point
+                             "score": (user.end_frame + 120 * user.collide_times) * 100 - user.check_point
                              }
                 rank.append(same_rank)
 

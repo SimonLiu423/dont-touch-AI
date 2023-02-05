@@ -87,10 +87,10 @@ class MazeMode(GameMode):
 
         self.all_points.update()
         # print(self.contact.touching())
-        collide_lst = pygame.sprite.spritecollide(self.car, self.walls, False)
-        if collide_lst:
+        if len(self.car.body.contacts) > 2:
+        # collide_lst = pygame.sprite.spritecollide(self.car, self.walls, False)
+        # if collide_lst:
             self.car.collide(self.frame)
-        # print(self.car.collide_times)
         for point in self.all_points:
             point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))
         self.world.Step(TIME_STEP, 10, 10)
@@ -134,10 +134,6 @@ class MazeMode(GameMode):
     def _init_world(self, user_no: int):
         self.contact_man = Box2D.b2ContactManager()
         self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
-        # self.contact = Box2D.b2Contact()
-        # self.contact_man.Destroy()
-        c = Box2D.b2Contact()
-        print(c)
 
 
     def _is_game_end(self):

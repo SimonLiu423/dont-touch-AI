@@ -47,16 +47,20 @@ class MazeMode(GameMode):
         self.new()
         '''sound'''
         self.sound_controller = SoundController(sound_controller)
+        # self.world.contactListener.fixtureA = self.car
+        # print(self.world.contactListener.m_contactList)
 
     def new(self):
         # initialize all variables and do all setup for a new game
         self.pygame_point = [10, 100]
         map = TiledMap_box2d(path.join(MAP_DIR, self.map_file), 32)
         walls = map.get_wall_info()
+        # self.contact.fixtureA = self.car.box
         for wall in walls:
             vertices = map.transfer_to_box2d(wall)
             wall = Wall(self, vertices, self.world)
             self.walls.add(wall)
+            # self.contact.fixtureB = wall.box
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -74,7 +78,6 @@ class MazeMode(GameMode):
         self.handle_event()
         self._is_game_end()
         self.command = command
-        # self.limit_pygame_screen()
         for car in self.cars:
             car.update(command[get_ai_name(car.car_no)])
             car.rect.center = self.trnsfer_box2d_to_pygame(car.body.position)
@@ -82,10 +85,8 @@ class MazeMode(GameMode):
             car.detect_distance(self.frame, self.wall_info)
 
         self.all_points.update()
-        collide_lst = pygame.sprite.spritecollide(self.car, self.walls, False)
-        if collide_lst:
+        if len(self.car.body.contacts) > 2:
             self.car.collide(self.frame)
-        # print(self.car.collide_times)
         for point in self.all_points:
             point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))
         self.world.Step(TIME_STEP, 10, 10)
@@ -127,7 +128,8 @@ class MazeMode(GameMode):
             self.map = Map(path.join(map_folder, self.map_file))
 
     def _init_world(self, user_no: int):
-        self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False)
+        self.contact_man = Box2D.b2ContactManager()
+        self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
 
 
     def _is_game_end(self):

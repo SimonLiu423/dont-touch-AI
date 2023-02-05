@@ -8,6 +8,9 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/tile.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj": {
             "scale": 0.2619921875,
             "selectedLayer": 0,
@@ -15,6 +18,9 @@
                 "x": 1341.643059490085,
                 "y": 1253.854182197704
             }
+        },
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/tile.tsx": {
+            "scaleInDock": 1
         },
         "level_1.jaso.tmx": {
             "scale": 0.42,

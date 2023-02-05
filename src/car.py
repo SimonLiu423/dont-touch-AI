@@ -14,7 +14,7 @@ class Car(pygame.sprite.Sprite):
         self.collide_frame = -100
         self.collide_times = 0
         self.car_no = car_no  # From 0 to 5
-        self.size = (40, 42)  # car size
+        self.size = (40, 40)  # car size
         self.is_completed = False
         self.end_frame = 0
         self.origin_image = pygame.transform.scale(
@@ -38,16 +38,16 @@ class Car(pygame.sprite.Sprite):
         self.sensor = Sensor(world, self.body, sensor_num, angle)
         self.body.angle = math.pi * angle
         self.check_point = 0
-        self.explotion = False
+        self.explosion = False
 
     def update(self, commands):
         self.image = pygame.transform.rotate(self.origin_image, (self.body.angle * 180 / math.pi) % 360)
         self.rect = self.image.get_rect()
-        if self.explotion:
+        if self.explosion:
             self.image_name += 1
             if self.image_name == 70:
                 self.image_name = 9
-                self.explotion = False
+                self.explosion = False
         if self.is_running and commands != None:
             if commands['right_PWM'] > 255:
                 self.R_PWM = 255
@@ -70,7 +70,7 @@ class Car(pygame.sprite.Sprite):
         if frame - self.collide_frame > 120:
             self.collide_times += 1
             self.collide_frame = frame
-            self.explotion = True
+            self.explosion = True
 
 
     def detect_distance(self, frame, walls):

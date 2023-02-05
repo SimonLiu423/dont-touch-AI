@@ -11,9 +11,9 @@ from .sound_controller import *
 
 
 class Dont_touch(PaiaGame):
-    def __init__(self, user_num, game_type, map, time_to_play, sensor_num, sound, *args, **kwargs):
+    def __init__(self, user_num, map, time_to_play, sensor_num, sound, *args, **kwargs):
         super().__init__(user_num=user_num)
-        self.game_type = game_type
+        # self.game_type = game_type
         self.user_num = user_num
         self.is_single = False
         if self.user_num == 1:
@@ -103,7 +103,7 @@ class Dont_touch(PaiaGame):
         bg_url = BG_URL
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
         for i in range(0, 7):
-            game_info["assets"].append(create_asset_init_data(f"car{i}", 50, 50,
+            game_info["assets"].append(create_asset_init_data(f"car{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"car{i}.png"), "url"))
 
         return game_info
@@ -146,13 +146,12 @@ class Dont_touch(PaiaGame):
         # car
         for car in self.game_mode.car_info:
             game_progress["object_list"].append(
-                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 50, 40,
+                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 40, 40,
                                        car["angle"])
             )
         # game_progress["object_list"].append(
         #     create_rect_view_data("car_r", self.game_mode.car.rect.x, self.game_mode.car.rect.y, self.game_mode.car.rect.width,
         #                           self.game_mode.car.rect.height, RED))
-
         # text
         game_progress["toggle"].append(
             create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
@@ -162,18 +161,18 @@ class Dont_touch(PaiaGame):
             x = 900
 
             if car["is_running"]:
-                #         game_progress["toggle"].append(
-                #             create_text_view_data("{:04.1f}".format(car["l_sensor_value"]["distance"]), x-88,
-                #                                   178 + 60 + 105 * (car["id"] // 2), "#FFFF00",
-                #                                   "15px Arial"))
-                #         game_progress["toggle"].append(
-                #             create_text_view_data("{:04.1f}".format(car["f_sensor_value"]["distance"]), x-48,
-                #                                   178 + 28 + 105 * (car["id"] // 2), "#FF0000",
-                #                                   "15px Arial"))
-                #         game_progress["toggle"].append(
-                #             create_text_view_data("{:04.1f}".format(car["r_sensor_value"]["distance"]), x,
-                #                                   178 + 60 + 105 * (car["id"] // 2), "#21A1F1",
-                #                                   "15px Arial"))
+                # game_progress["toggle"].append(
+                #     create_text_view_data("{:04.1f}".format(car["l_sensor_value"]["distance"]), x-88,
+                #                           178 + 60 + 105 * (car["id"] // 2), "#FFFF00",
+                #                           "15px Arial"))
+                # game_progress["toggle"].append(
+                #     create_text_view_data("{:04.1f}".format(car["f_sensor_value"]["distance"]), x-48,
+                #                           178 + 28 + 105 * (car["id"] // 2), "#FF0000",
+                #                           "15px Arial"))
+                # game_progress["toggle"].append(
+                #     create_text_view_data("{:04.1f}".format(car["r_sensor_value"]["distance"]), x,
+                #                           178 + 60 + 105 * (car["id"] // 2), "#21A1F1",
+                #                           "15px Arial"))
                 #         if car["r_t_sensor_value"]["distance"]!=-1 and car["l_t_sensor_value"]["distance"]!=-1:
                 #             game_progress["toggle"].append(
                 #                 create_text_view_data("{:04.1f}".format(car["r_t_sensor_value"]["distance"]), x,
@@ -322,7 +321,6 @@ class Dont_touch(PaiaGame):
         self.game_mode = MazeMode(self.user_num, self.maze_id + 1, self.game_end_time, self.sensor_num,
                                   self.is_sound)
         self.game_type = "MAZE"
-
     def trnsfer_box2d_to_pygame(self, coordinate):
         '''
         :param coordinate: vertice of body of box2d object

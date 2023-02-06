@@ -11,13 +11,10 @@
 * 搭配[MLGame](https://github.com/PAIA-Playful-AI-Arena/MLGame)執行，請將遊戲放在MLGame/games資料夾中，遊戲資料夾需命名為**Maze_Car**
 ```
 # 在遊戲資料夾中
-python -m mlgame -i ml/ml_play_template.py ./ --map 1 --game_type MAZE --user_num 6 --time_to_play 450 --sensor_num 5 --sound off
+python -m mlgame -i ml/ml_play_template.py ./ --map 1 --time_to_play 450 --sensor_num 5 --sound off
 ```
 ### 遊戲參數
-
-* `the number of user`：指定遊戲玩家人數，最少需一名玩家。單機手動模式最多兩名(鍵盤位置不足)，機器學習模式至多六名。
-* `game_mode`：遊戲模式，目前有迷宮模式、移動迷宮模式與練習模式，分別為"MAZE"、"MOVE_MAZE"、"PRACTICE"。
-* `map`：選擇不同的迷宮，目前提供2種迷宮地圖，並且會隨時增加，迷宮編號從1開始，預設為1號地圖。
+* `map`：選擇不同的迷宮，目前提供2種迷宮地圖，迷宮編號從1開始，預設為1號地圖。
 * `time`：控制遊戲時間，單位為秒，時間到了之後即使有玩家還沒走出迷宮，遊戲仍然會結束。
 * `sensor`：選擇感測器數量，目前可以選擇3或5個，預設為5。
 * `sound`：音效設定，可選擇"on"或"off"，預設為"off"

@@ -86,12 +86,11 @@ class MazeMode(GameMode):
 
         self.all_points.update()
         if len(self.car.body.contacts) > 2:
-            contact = True
+            contact = 0
             for contact_edge in self.car.body.contacts:
-                if not contact_edge.contact.touching:
-                    contact = False
-                    break
-            if contact:
+                if contact_edge.contact.touching:
+                    contact += 1
+            if contact > 2:
                 self.car.collide(self.frame)
         for point in self.all_points:
             point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))

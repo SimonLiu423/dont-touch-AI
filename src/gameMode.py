@@ -20,6 +20,7 @@ class GameMode(object):
         self.font = pygame.font.Font(pygame.font.match_font("arial", bold=True), 15)
         self.time_font = pygame.font.Font(pygame.font.match_font("arial", bold=True), 46)
         self.check_point_num = 0
+        self.check_points = []
         # self.start_time = time.time()
 
     def ticks(self, fps=FPS):
@@ -264,6 +265,7 @@ class GameMode(object):
         for p in o:
             check_point = Check_point(self, (p[1], p[0]))
             self.check_point_num += 1
+            self.check_points.append(check_point.get_info()["coordinate"])
         # self.end_point = End_point(self, (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE)))
         o = obj["car"]
         if o[2] == 6 or o[2] == 10:

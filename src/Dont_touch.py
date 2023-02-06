@@ -63,6 +63,7 @@ class Dont_touch(PaiaGame):
                                                         "crash_times": car["crash_times"],
                                                         "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
                                                         "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
+                                                        "check_points": self.game_mode.check_points
                                                         }
         return player_info
 
@@ -321,6 +322,7 @@ class Dont_touch(PaiaGame):
         self.game_mode = MazeMode(self.user_num, self.maze_id + 1, self.game_end_time, self.sensor_num,
                                   self.is_sound)
         self.game_type = "MAZE"
+
     def trnsfer_box2d_to_pygame(self, coordinate):
         '''
         :param coordinate: vertice of body of box2d object

@@ -144,12 +144,7 @@ class Dont_touch(PaiaGame):
         # game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 860, 560))
         game_progress["background"].append(create_image_view_data("bg_img", -200, 1200, 800, 800))
         p = self.game_mode.trnsfer_box2d_to_pygame((0, 0))
-        # car
-        for car in self.game_mode.car_info:
-            game_progress["object_list"].append(
-                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 40, 40,
-                                       car["angle"])
-            )
+
         # game_progress["object_list"].append(
         #     create_rect_view_data("car_r", self.game_mode.car.rect.x, self.game_mode.car.rect.y, self.game_mode.car.rect.width,
         #                           self.game_mode.car.rect.height, RED))
@@ -215,6 +210,13 @@ class Dont_touch(PaiaGame):
                                                                      x - 48, 178 + 30 + 105 * (car["id"] // 2),
                                                                      "#FFFFFF",
                                                                      "16px Arial"))
+
+        # car
+        for car in self.game_mode.car_info:
+            game_progress["object_list"].append(
+                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 40, 40,
+                                       car["angle"])
+            )
 
         return game_progress
 

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "level_5.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -34,8 +34,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1504,
-                "y": 1292
+                "x": 1284,
+                "y": 1284
             }
         },
         "level_1.tmx": {
@@ -50,8 +50,8 @@
             "scale": 0.2594,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1283.7316885119506,
-                "y": 1260.6013878180415
+                "x": 1283.7316885119508,
+                "y": 1283.7316885119508
             }
         },
         "level_3.tmj": {
@@ -63,6 +63,14 @@
             }
         },
         "level_4.tmj": {
+            "scale": 0.2619921875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1282.480990010437,
+                "y": 1282.480990010437
+            }
+        },
+        "level_5.tmj": {
             "scale": 0.2619921875,
             "selectedLayer": 0,
             "viewCenter": {
@@ -83,12 +91,18 @@
     "map.width": 40,
     "openFiles": [
         "level_2.tmj",
-        "level_1.tmj"
+        "level_1.tmj",
+        "level_3.tmj",
+        "level_4.tmj",
+        "level_5.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
         "level_2.tmj",
         "level_1.tmj",
+        "level_3.tmj",
+        "level_4.tmj",
+        "level_5.tmj",
         "tile.tsx",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",
         "level_1.tmx",

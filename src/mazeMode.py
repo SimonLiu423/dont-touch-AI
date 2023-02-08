@@ -81,8 +81,8 @@ class MazeMode(GameMode):
         for car in self.cars:
             car.update(command[get_ai_name(car.car_no)])
             car.rect.center = self.trnsfer_box2d_to_pygame(car.body.position)
-            self.car_info.append(car.get_info())
             car.detect_distance(self.frame, self.wall_info)
+            self.car_info.append(car.get_info())
 
         self.all_points.update()
         if len(self.car.body.contacts) > 2:

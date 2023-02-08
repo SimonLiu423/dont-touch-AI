@@ -22,6 +22,14 @@
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/tile.tsx": {
             "scaleInDock": 1
         },
+        "lecel_6.tmj": {
+            "scale": 0.2619921875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1282.480990010437,
+                "y": 1282.480990010437
+            }
+        },
         "level_1.jaso.tmx": {
             "scale": 0.42,
             "selectedLayer": 0,
@@ -34,8 +42,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1284,
-                "y": 1284
+                "x": 1280,
+                "y": 1280
             }
         },
         "level_1.tmx": {
@@ -50,8 +58,8 @@
             "scale": 0.2594,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1283.7316885119508,
-                "y": 1283.7316885119508
+                "x": 1283.7316885119506,
+                "y": 1260.6013878180415
             }
         },
         "level_3.tmj": {
@@ -71,6 +79,14 @@
             }
         },
         "level_5.tmj": {
+            "scale": 0.2619921875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1282.480990010437,
+                "y": 1282.480990010437
+            }
+        },
+        "level_6.tmj": {
             "scale": 0.2619921875,
             "selectedLayer": 0,
             "viewCenter": {
@@ -98,6 +114,7 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "lecel_6.tmj",
         "level_2.tmj",
         "level_1.tmj",
         "level_3.tmj",

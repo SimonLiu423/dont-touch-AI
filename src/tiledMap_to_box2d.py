@@ -113,20 +113,18 @@ class TiledMap_box2d:
         vertices = []
         if wall[0][0] == wall[1][0]:  # 橫向積木
             left_tile_x = wall[0][1]
-            left_tile_y = wall[0][0]
-            # left_tile_y = self.tileHeight - 1 - wall[0][0]
+            left_tile_y = self.tileHeight - 1 - wall[0][0]
             right_tile_x = wall[1][1]
-            right_tile_y = wall[1][0]
-            # right_tile_y = self.tileHeight - 1 - wall[1][0]
+            right_tile_y = self.tileHeight - 1 - wall[1][0]
             vertices.extend([[left_tile_x, left_tile_y], [left_tile_x, left_tile_y + 1],
                              [right_tile_x + 1, right_tile_y], [right_tile_x + 1, right_tile_y + 1]])
         else:  # 縱向積木
             upper_tile_x = wall[0][1]
-            upper_tile_y = wall[0][0]
+            upper_tile_y = self.tileHeight - 1 - wall[0][0]
             down_tile_x = wall[1][1]
-            down_tile_y = wall[1][0]
-            vertices.extend([[upper_tile_x, upper_tile_y], [upper_tile_x + 1, upper_tile_y],
-                             [down_tile_x, down_tile_y + 1], [down_tile_x + 1, down_tile_y + 1]])
+            down_tile_y = self.tileHeight - 1 - wall[1][0]
+            vertices.extend([[upper_tile_x, upper_tile_y + 1], [upper_tile_x + 1, upper_tile_y + 1],
+                             [down_tile_x, down_tile_y], [down_tile_x + 1, down_tile_y]])
         return vertices
 
     def trnsfer_box2d_to_pygame(self, coordinate):
@@ -144,13 +142,15 @@ class TiledMap_box2d:
             if self.data[i][2] == 1:
                 continue
             elif self.data[i][2] in (6, 10, 11, 12, 13):
-                obj["car"] = self.data[i]
+                # obj["car"] = self.data[i]
+                obj["car"] = [self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]]
             elif self.data[i][2] == 7:
-                obj["end_point"] = self.data[i]
+                obj["end_point"] = [self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]]
+                # obj["end_point"] = self.data[i]
             elif self.data[i][2] == 8:
-                obj["check_point"].append(self.data[i])
+                obj["check_point"].append([self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]])
+                # obj["check_point"].append(self.data[i])
         return obj
-
 
     def print_data(self):
         print("width", self.width)

@@ -5,8 +5,8 @@ TARGET_FPS = 60
 TIME_STEP = 1.0 / TARGET_FPS
 
 '''width and height'''
-WIDTH = 800
-HEIGHT = 810
+WIDTH = 1000
+HEIGHT = 800
 TILE_WIDTH = 540  # 大小
 TILE_HEIGHT = 540
 

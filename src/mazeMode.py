@@ -55,12 +55,10 @@ class MazeMode(GameMode):
         self.pygame_point = [10, 100]
         map = TiledMap_box2d(path.join(MAP_DIR, self.map_file), 32)
         walls = map.get_wall_info()
-        # self.contact.fixtureA = self.car.box
         for wall in walls:
             vertices = map.transfer_to_box2d(wall)
             wall = Wall(self, vertices, self.world)
             self.walls.add(wall)
-            # self.contact.fixtureB = wall.box
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -69,7 +67,6 @@ class MazeMode(GameMode):
             self.wall_info.append([vertices[2], vertices[1]])
             self.wall_info.append([vertices[3], vertices[0]])
             self.wall_info.append([vertices[2], vertices[3]])
-        # self.limit_pygame_screen()
 
     def update_sprite(self, command):
         '''update the model of game,call this fuction per frame'''

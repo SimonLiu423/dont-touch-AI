@@ -71,6 +71,13 @@ class GameMode(object):
         return self.running
 
     def rank(self):
+        '''
+        不限碰撞次數，但須在規定時間內過關
+        排名依據：
+        1. 檢查點個數（走到終點及取得所有檢查點）。
+        2. 若檢查點個數相同，則比較碰撞次數，越少者排名越前。
+        3. 碰撞次數相同，則比較走到最末檢查點的時間，越早走到者排名越前。
+        '''
         completed_game_user = []
         unfinish_game_user = []
         user_end_frame = []
@@ -124,7 +131,6 @@ class GameMode(object):
         :param coordinate: vertice of body of box2d object
         :return: center of pygame rect
         '''
-        # return ((coordinate[0] - self.pygame_point[0]) * PPM, (coordinate[1]+60) * PPM)
         return ((coordinate[0] - self.pygame_point[0]) * PPM, (self.pygame_point[1] - coordinate[1]) * PPM)
 
     def get_wall_info_v(self, wall_tile):
@@ -144,8 +150,6 @@ class GameMode(object):
                             self.wall_vertices_for_Box2D.append(
                                 {"type": wall_tile,
                                  "vertices": self.wall_vertices_v((col, first_tile), (col, last_tile))})
-
-                            # self.wall_vertices_for_Box2D.append(self.wall_vertices_v((col, first_tile), (col, last_tile)))
                             first_tile = -1
                             row += 1
                         else:
@@ -154,7 +158,6 @@ class GameMode(object):
                         last_tile = row
                         self.wall_vertices_for_Box2D.append(
                             {"type": wall_tile, "vertices": self.wall_vertices_v((col, first_tile), (col, last_tile))})
-                        # self.wall_vertices_for_Box2D.append(self.wall_vertices_v((col, first_tile), (col, last_tile)))
                         first_tile = -1
                         row += 1
                     else:
@@ -213,44 +216,6 @@ class GameMode(object):
                     else:
                         col += 1
 
-    def wall_vertices_h(self, first_tile, last_tile):
-        first_tilex = first_tile[0] + TILESIZE / (2 * PPM) + 1
-        first_tiley = - first_tile[1] - TILESIZE / (2 * PPM) - 1
-        last_tilex = last_tile[0] + TILESIZE / (2 * PPM) + 1
-        last_tiley = - last_tile[1] - TILESIZE / (2 * PPM) - 1
-        r = TILESIZE / (2 * PPM)
-        vertices = [(first_tilex - r, first_tiley + r),
-                    (last_tilex + r, last_tiley - r),
-                    (last_tilex + r, last_tiley + r),
-                    (first_tilex - r, first_tiley - r),
-
-                    ]  # Box2D
-
-        # self.wall_info.append([vertices[0],vertices[1]])
-        # self.wall_info.append([vertices[2],vertices[1]])
-        # self.wall_info.append([vertices[3],vertices[0]])
-        # self.wall_info.append([vertices[2],vertices[3]])
-        return vertices
-
-    def wall_vertices_v(self, first_tile, last_tile):
-        first_tilex = first_tile[0] + TILESIZE / (2 * PPM) + 1
-        first_tiley = - first_tile[1] - TILESIZE / (2 * PPM) - 1
-        last_tilex = last_tile[0] + TILESIZE / (2 * PPM) + 1
-        last_tiley = - last_tile[1] - TILESIZE / (2 * PPM) - 1
-        r = TILESIZE / (2 * PPM)
-        vertices = [(first_tilex - r, first_tiley + r),
-                    (first_tilex + r, first_tiley + r),
-                    (last_tilex + r, last_tiley - r),
-                    (last_tilex - r, last_tiley - r),
-
-                    ]  # Box2D
-
-        # self.wall_info.append([vertices[0],vertices[1]])
-        # self.wall_info.append([vertices[2],vertices[1]])
-        # self.wall_info.append([vertices[3],vertices[0]])
-        # self.wall_info.append([vertices[2],vertices[3]])
-        return vertices
-
     def _print_result(self):
         if self.is_end and self.x == 0:
             for rank in self.ranked_user:
@@ -262,21 +227,17 @@ class GameMode(object):
     def load_map_object(self, obj):
         o = obj["end_point"]
         self.end_point = End_point(self, (o[1], o[0]))
+        self.check_point_num += 1
         o = obj["check_point"]
         for p in o:
             check_point = Check_point(self, (p[1], p[0]))
             self.check_point_num += 1
             self.check_points.append(check_point.get_info()["coordinate"])
-        # self.end_point = End_point(self, (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE)))
         o = obj["car"]
         if o[2] == 6 or o[2] == 10:
-            # x, y = (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE))
-            # self.car = Car(self.world, (x + TILESIZE / (2 * PPM), - y - TILESIZE / (2 * PPM)),
-            #                0, self.sensor_num, 2)
             self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 2)
             self.cars.add(self.car)
             self.car_info.append(self.car.get_info())
-            # Car(self, world, (col + (TILE_LEFTTOP[0] / TILESIZE), row + (TILE_LEFTTOP[1] / TILESIZE)), i, 1)
         elif o[2] == 13:
             self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 0.5)
             self.cars.add(self.car)
@@ -289,34 +250,6 @@ class GameMode(object):
             self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 1.5)
             self.cars.add(self.car)
             self.car_info.append(self.car.get_info())
-        # elif o[2] == 14:
-        #     x, y = (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE))
-        #     wall_vertices = [(x, -y),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y - (TILE_LEFTTOP[0] / TILESIZE))]
-        #     wall = SlantWall(self, wall_vertices, self.world)
-        #     self.slant_walls.add(wall)
-        # elif o[2] == 15:
-        #     x, y = (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE))
-        #     wall_vertices = [(x, -y - (TILE_LEFTTOP[0] / TILESIZE)),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y - (TILE_LEFTTOP[0] / TILESIZE))]
-        #     wall = SlantWall(self, wall_vertices, self.world)
-        #     self.slant_walls.add(wall)
-        # elif o[2] == 16:
-        #     x, y = (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE))
-        #     wall_vertices = [(x, -y - (TILE_LEFTTOP[0] / TILESIZE)),
-        #                      (x, -y),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y - (TILE_LEFTTOP[0] / TILESIZE))]
-        #     wall = SlantWall(self, wall_vertices, self.world)
-        #     self.slant_walls.add(wall)
-        # elif o[2] == 17:
-        #     x, y = (o[1] + (TILE_LEFTTOP[0] / TILESIZE), o[0] + (TILE_LEFTTOP[1] / TILESIZE))
-        #     wall_vertices = [(x, -y - (TILE_LEFTTOP[0] / TILESIZE)),
-        #                      (x, -y),
-        #                      (x + (TILE_LEFTTOP[0] / TILESIZE), -y)]
-        #     wall = SlantWall(self, wall_vertices, self.world)
-        #     self.slant_walls.add(wall)
         try:
             if self.end_point and len(self.cars):
                 pass

@@ -33,6 +33,7 @@ class End_point(Point):
         hits = pygame.sprite.spritecollide(self, self.game.cars, False)
         for hit in hits:
             if hit.is_running:
+                hit.check_point += 1
                 hit.end_frame = self.game.frame
                 hit.is_completed = True
                 self.game.eliminated_user.append(hit)  # TODO #外部注入

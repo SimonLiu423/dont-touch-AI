@@ -10,7 +10,8 @@ from .env import *
 class Car(pygame.sprite.Sprite):
     def __init__(self, world, coordinate: tuple, car_no: int, sensor_num, angle: int):
         pygame.sprite.Sprite.__init__(self)
-        self.image_name = 9
+        self.image_num = 9
+        self.image_name = f"car{self.image_num//10}"
         self.collide_frame = -100
         self.collide_times = 0
         self.car_no = car_no  # From 0 to 5
@@ -43,10 +44,12 @@ class Car(pygame.sprite.Sprite):
     def update(self, commands):
         self.image = pygame.transform.rotate(self.origin_image, (self.body.angle * 180 / math.pi) % 360)
         self.rect = self.image.get_rect()
+        self.image_name = f"car{self.image_num // 10}"
         if self.explosion:
-            self.image_name += 1
-            if self.image_name == 70:
-                self.image_name = 9
+            self.image_name = f"regularExplosion0{self.image_num // 10}"
+            self.image_num += 1
+            if self.image_num == 60:
+                self.image_num = 9
                 self.explosion = False
         if self.is_running and commands != None:
             if commands['right_PWM'] > 255:
@@ -113,7 +116,7 @@ class Car(pygame.sprite.Sprite):
                          "L_PWM": self.L_PWM,
                          "R_PWM": self.R_PWM,
                          "end_frame": self.end_frame,
-                         "image":f"car{self.image_name//10}",
+                         "image":self.image_name,
                          "crash_times":self.collide_times
                          }
         return self.car_info

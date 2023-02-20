@@ -143,7 +143,7 @@ class MazeMode(GameMode):
         if self.frame >= self.game_end_time:
             for car in self.cars:
                 if car not in self.eliminated_user and car.is_running:
-                    car.end_frame = self.frame
+                    # car.end_frame = self.frame
                     self.eliminated_user.append(car)
                     car.is_running = False
                     car.status = "GAME_OVER"
@@ -157,4 +157,3 @@ class MazeMode(GameMode):
             self.ranked_user = self.rank()
             self._print_result()
             self.status = "END"
-

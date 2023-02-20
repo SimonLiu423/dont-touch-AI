@@ -78,52 +78,20 @@ class GameMode(object):
         2. 若檢查點個數相同，則比較碰撞次數，越少者排名越前。
         3. 碰撞次數相同，則比較走到最末檢查點的時間，越早走到者排名越前。
         '''
-        completed_game_user = []
-        unfinish_game_user = []
-        user_end_frame = []
         user_check_point = []
+        user_crush_times = []
+        user_end_frame = []
+        user_score = []
         for car in self.eliminated_user:
-            if car.is_completed:
-                user_end_frame.append(car.end_frame + car.collide_times * 120)
-                completed_game_user.append(car)
-            else:
-                user_check_point.append(car.check_point)
-                unfinish_game_user.append(car)
-        same_rank = []
-        rank_user = []  # [[sprite, sprite],[]]
+            user_check_point.append(car.check_point)
+            user_crush_times.append(car.collide_times)
+            user_end_frame.append(car.end_frame)
+            user_score.append(car.check_point * 10000 - car.collide_times * 10 - car.end_frame * 0.001)
+        rank_user = []  # [sprite]
 
-        result = [user_end_frame.index(x) for x in sorted(user_end_frame)]
+        result = [user_score.index(x) for x in sorted(user_score, reverse=True)]
         for i in range(len(result)):
-            if result[i] != result[i - 1] or i == 0:
-                if same_rank:
-                    rank_user.append(same_rank)
-                same_rank = []
-                same_rank.append(completed_game_user[result[i]])
-            else:
-                for user in completed_game_user:
-                    if user.end_frame == same_rank[0].end_frame and user not in same_rank:
-                        same_rank.append(user)
-                    else:
-                        pass
-        if same_rank:
-            rank_user.append(same_rank)
-
-        same_rank = []
-        result = [user_check_point.index(x) for x in sorted(user_check_point, reverse=True)]
-        for i in range(len(result)):
-            if result[i] != result[i - 1] or i == 0:
-                if same_rank:
-                    rank_user.append(same_rank)
-                same_rank = []
-                same_rank.append(unfinish_game_user[result[i]])
-            else:
-                for user in unfinish_game_user:
-                    if user.check_point == same_rank[0].check_point and user not in same_rank:
-                        same_rank.append(user)
-                    else:
-                        pass
-        if same_rank:
-            rank_user.append(same_rank)
+            rank_user.append(self.eliminated_user[result[i]])
         return rank_user
 
     def trnsfer_box2d_to_pygame(self, coordinate):
@@ -218,9 +186,8 @@ class GameMode(object):
 
     def _print_result(self):
         if self.is_end and self.x == 0:
-            for rank in self.ranked_user:
-                for user in rank:
-                    self.result.append(str(user.car_no + 1) + "P:" + str(user.end_frame) + "frame")
+            for user in self.ranked_user:
+                self.result.append(str(user.car_no + 1) + "P:" + str(user.end_frame) + "frame")
             self.x += 1
             print(self.result)
 

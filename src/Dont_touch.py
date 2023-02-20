@@ -103,9 +103,12 @@ class Dont_touch(PaiaGame):
         bg_path = path.join(ASSET_IMAGE_DIR, BG_IMG)
         bg_url = BG_URL
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
-        for i in range(0, 7):
-            game_info["assets"].append(create_asset_init_data(f"car{i}", 40, 40,
-                                                              path.join(ASSET_IMAGE_DIR, f"car{i}.png"), "url"))
+        game_info["assets"].append(
+            create_asset_init_data("car0", 40, 40, path.join(ASSET_IMAGE_DIR, "car0.png"), "url"))
+        for i in range(0, 6):
+            game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
+                                                              path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
+                                                              "url"))
 
         return game_info
 
@@ -144,10 +147,6 @@ class Dont_touch(PaiaGame):
         # game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 860, 560))
         game_progress["background"].append(create_image_view_data("bg_img", -200, 1200, 800, 800))
         p = self.game_mode.trnsfer_box2d_to_pygame((0, 0))
-
-        # game_progress["object_list"].append(
-        #     create_rect_view_data("car_r", self.game_mode.car.rect.x, self.game_mode.car.rect.y, self.game_mode.car.rect.width,
-        #                           self.game_mode.car.rect.height, RED))
         # text
         game_progress["toggle"].append(
             create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
@@ -157,27 +156,6 @@ class Dont_touch(PaiaGame):
             x = 900
 
             if car["is_running"]:
-                # game_progress["toggle"].append(
-                #     create_text_view_data("{:04.1f}".format(car["l_sensor_value"]["distance"]), x-88,
-                #                           178 + 60 + 105 * (car["id"] // 2), "#FFFF00",
-                #                           "15px Arial"))
-                # game_progress["toggle"].append(
-                #     create_text_view_data("{:04.1f}".format(car["f_sensor_value"]["distance"]), x-48,
-                #                           178 + 28 + 105 * (car["id"] // 2), "#FF0000",
-                #                           "15px Arial"))
-                # game_progress["toggle"].append(
-                #     create_text_view_data("{:04.1f}".format(car["r_sensor_value"]["distance"]), x,
-                #                           178 + 60 + 105 * (car["id"] // 2), "#21A1F1",
-                #                           "15px Arial"))
-                #         if car["r_t_sensor_value"]["distance"]!=-1 and car["l_t_sensor_value"]["distance"]!=-1:
-                #             game_progress["toggle"].append(
-                #                 create_text_view_data("{:04.1f}".format(car["r_t_sensor_value"]["distance"]), x,
-                #                                       178 + 30 + 105 * (car["id"] // 2), "#21A1F1",
-                #                                       "15px Arial"))
-                #             game_progress["toggle"].append(
-                #                 create_text_view_data("{:04.1f}".format(car["l_t_sensor_value"]["distance"]), x-88,
-                #                                       178 + 30 + 105 * (car["id"] // 2), "#FFFF00",
-                #                                       "15px Arial"))
                 game_progress["object_list"].append(
                     create_line_view_data("l_sensor", car["center"][0], car["center"][1],
                                           self.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[0],
@@ -229,40 +207,27 @@ class Dont_touch(PaiaGame):
         result = self.game_mode.result
         rank = []
         # TODO refactor
-        for ranking in self.game_mode.ranked_user:
-            for user in ranking:
-                if self.game_mode.check_point_num:
-                    pass_percent = round(user.check_point / self.game_mode.check_point_num, 5) * 100
-                    remain_point = self.game_mode.check_point_num - user.check_point
-                    remain_percent = 100 - pass_percent
-                else:
-                    pass_percent = 0
-                    remain_point = 0
-                    remain_percent = 0
-                # same_rank = {"玩家編號": str(user.car_no + 1) + "P",
-                #              "單局排名": self.game_mode.ranked_user.index(ranking) + 1,
-                #              "使用總幀數": user.end_frame,
-                #              "遊戲總幀數限制":self.game_end_time,
-                #              "使用時間百分比":round(user.end_frame/self.game_end_time,5)*100,
-                #              "檢查點總數量":self.game_mode.check_point_num,
-                #              "玩家通過檢查點數量": user.check_point,
-                #              "玩家未通過檢查點數量": remain_point,
-                #              "檢查點通過率": pass_percent,
-                #              "檢查點未通過率": remain_percent,
-                # }
-                same_rank = {"player": str(user.car_no + 1) + "P",
-                             "rank": self.game_mode.ranked_user.index(ranking) + 1,
-                             "used_frame": user.end_frame,
-                             "frame_limit": self.game_end_time,
-                             "frame_percent": round(user.end_frame / self.game_end_time * 100, 3),
-                             "total_checkpoints": self.game_mode.check_point_num,
-                             "check_points": user.check_point,
-                             "remain_points": remain_point,
-                             "pass_percent": pass_percent,
-                             "remain_percent": remain_percent,
-                             "score": (user.end_frame + 120 * user.collide_times) * 100 - user.check_point
-                             }
-                rank.append(same_rank)
+        for user in self.game_mode.ranked_user:
+            if self.game_mode.check_point_num:
+                pass_percent = round(user.check_point / self.game_mode.check_point_num, 5) * 100
+                remain_point = self.game_mode.check_point_num - user.check_point
+            else:
+                pass_percent = 0
+                remain_point = 0
+            same_rank = {"player": str(user.car_no + 1) + "P",
+                         "rank": self.game_mode.ranked_user.index(user) + 1,
+                         "frame_limit": self.game_end_time,
+                         "used_frame": user.end_frame,
+                         "frame_percent": round(user.end_frame / self.game_end_time * 100, 3),
+                         "total_checkpoints": self.game_mode.check_point_num,
+                         "check_points": user.check_point,
+                         "remain_points": remain_point,
+                         "pass_percent": pass_percent,
+                         # "remain_percent": remain_percent,
+                         "crush_times": user.collide_times,
+                         "score": 10000 * user.check_point - 0.001 * user.end_frame - 10 * user.collide_times
+                         }
+            rank.append(same_rank)
 
         return {"frame_used": scene_info["frame"],
                 "state": self.game_mode.state,

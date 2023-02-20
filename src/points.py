@@ -66,6 +66,7 @@ class Check_point(Point):
         for hit in hits:
             if hit.status and hit not in self.car_has_hit:
                 hit.check_point += 1
+                hit.end_frame = self.game.frame
                 self.car_has_hit.append(hit)
 
     def get_progress_data(self):

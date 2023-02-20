@@ -23,7 +23,7 @@ class MazeMode(GameMode):
         self.load_data()
 
         '''group of sprites'''
-        self.world = None
+        self.worlds = []
         self.cars = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.slant_walls = pygame.sprite.Group()
@@ -57,8 +57,10 @@ class MazeMode(GameMode):
         walls = map.get_wall_info()
         for wall in walls:
             vertices = map.transfer_to_box2d(wall)
-            wall = Wall(self, vertices, self.world)
-            self.walls.add(wall)
+            for world in self.worlds:
+                wall = Wall(self, vertices, world)
+                if self.worlds.index(world) == 0:
+                    self.walls.add(wall)
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -82,17 +84,19 @@ class MazeMode(GameMode):
             self.car_info.append(car.get_info())
 
         self.all_points.update()
-        if len(self.car.body.contacts) > 2:
-            contact = 0
-            for contact_edge in self.car.body.contacts:
-                if contact_edge.contact.touching:
-                    contact += 1
-            if contact > 2:
-                self.car.collide(self.frame)
+        for car in self.cars:
+            if len(car.body.contacts) > 2:
+                contact = 0
+                for contact_edge in car.body.contacts:
+                    if contact_edge.contact.touching:
+                        contact += 1
+                if contact > 2:
+                    car.collide(self.frame)
         for point in self.all_points:
             point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))
-        self.world.Step(TIME_STEP, 10, 10)
-        self.world.ClearForces()
+        for world in self.worlds:
+            world.Step(TIME_STEP, 10, 10)
+            world.ClearForces()
         if self.is_end:
             self.running = False
 
@@ -131,7 +135,9 @@ class MazeMode(GameMode):
 
     def _init_world(self, user_no: int):
         self.contact_man = Box2D.b2ContactManager()
-        self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
+        for i in range(self.user_num):
+            self.worlds.append(Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener))
+        # self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
 
 
     def _is_game_end(self):
@@ -143,7 +149,6 @@ class MazeMode(GameMode):
         if self.frame >= self.game_end_time:
             for car in self.cars:
                 if car not in self.eliminated_user and car.is_running:
-                    # car.end_frame = self.frame
                     self.eliminated_user.append(car)
                     car.is_running = False
                     car.status = "GAME_OVER"

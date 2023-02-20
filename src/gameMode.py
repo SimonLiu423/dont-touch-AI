@@ -202,21 +202,25 @@ class GameMode(object):
             self.check_points.append(check_point.get_info()["coordinate"])
         o = obj["car"]
         if o[2] == 6 or o[2] == 10:
-            self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 2)
-            self.cars.add(self.car)
-            self.car_info.append(self.car.get_info())
+            for world in self.worlds:
+                car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 2)
+                self.cars.add(car)
+                self.car_info.append(car.get_info())
         elif o[2] == 13:
-            self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 0.5)
-            self.cars.add(self.car)
-            self.car_info.append(self.car.get_info())
+            for world in self.worlds:
+                car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 0.5)
+                self.cars.add(car)
+                self.car_info.append(car.get_info())
         elif o[2] == 12:
-            self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 1)
-            self.cars.add(self.car)
-            self.car_info.append(self.car.get_info())
+            for world in self.worlds:
+                car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1)
+                self.cars.add(car)
+                self.car_info.append(car.get_info())
         elif o[2] == 11:
-            self.car = Car(self.world, (o[1], o[0]), 0, self.sensor_num, 1.5)
-            self.cars.add(self.car)
-            self.car_info.append(self.car.get_info())
+            for world in self.worlds:
+                car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1.5)
+                self.cars.add(car)
+                self.car_info.append(car.get_info())
         try:
             if self.end_point and len(self.cars):
                 pass

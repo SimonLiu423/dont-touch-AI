@@ -103,8 +103,9 @@ class Dont_touch(PaiaGame):
         bg_path = path.join(ASSET_IMAGE_DIR, BG_IMG)
         bg_url = BG_URL
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
-        game_info["assets"].append(
-            create_asset_init_data("car0", 40, 40, path.join(ASSET_IMAGE_DIR, "car0.png"), "url"))
+        for i in range(self.user_num):
+            game_info["assets"].append(
+                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), "url"))
         for i in range(0, 6):
             game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
@@ -152,7 +153,7 @@ class Dont_touch(PaiaGame):
             create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
         for car in self.game_mode.car_info:
             game_progress["toggle"].append(
-                create_text_view_data(f"crash time:{car['crash_times']}", 820, 130, WHITE, font_style="26px Arial"))
+                create_text_view_data(f"crash time:{car['crash_times']}", 820, 130 + 30*car["id"], WHITE, font_style="26px Arial"))
             x = 900
 
             if car["is_running"]:

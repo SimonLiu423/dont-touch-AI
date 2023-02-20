@@ -105,11 +105,11 @@ class Dont_touch(PaiaGame):
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
         for i in range(self.user_num):
             game_info["assets"].append(
-                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), "url"))
+                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), f"https://github.com/yen900611/dont_touch/blob/master/asset/image/car_0{i+1}.png"))
         for i in range(0, 6):
             game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
-                                                              "url"))
+                                                              f"https://github.com/yen900611/dont_touch/blob/master/asset/image/regularExplosion0{i}.png"))
 
         return game_info
 

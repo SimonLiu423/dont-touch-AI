@@ -9,7 +9,8 @@ class SoundController():
             try:
                 pygame.mixer.init()
                 pygame.mixer.music.load(path.join(SOUND_DIR, "BGM.mp3"))
-                pygame.mixer.music.set_volume(0.4)
+                pygame.mixer.music.set_volume(0.5)
+                self.bomb_sound = pygame.mixer.Sound(path.join(SOUND_DIR, "bomb.mp3"))
             except Exception:
                 self.is_sound_on = False
         else:

@@ -27,7 +27,8 @@ class Dont_touch(PaiaGame):
         self.is_running = self.isRunning()
         self.map_width = self.game_mode.map.width
         self.map_height = self.game_mode.map.height
-        self.scene = Scene(WIDTH, HEIGHT, "#000000", 500 - self.map_width, 480 - self.map_height)
+        self.scene = Scene(WIDTH, HEIGHT, "#000000", self.map_width, self.map_height)
+        self.scene = Scene(WIDTH, HEIGHT, "#000000", self.map_width, self.map_height)
         self.origin_car_pos = [0, 0]
 
     # self.origin_car_pos = self.game_mode.car_info[0]["center"]
@@ -105,11 +106,11 @@ class Dont_touch(PaiaGame):
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
         for i in range(self.user_num):
             game_info["assets"].append(
-                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), f"https://github.com/yen900611/dont_touch/blob/master/asset/image/car_0{i+1}.png"))
+                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i+1}.png"))
         for i in range(0, 6):
             game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
-                                                              f"https://github.com/yen900611/dont_touch/blob/master/asset/image/regularExplosion0{i}.png"))
+                                                              f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i+1}.png"))
 
         return game_info
 
@@ -128,7 +129,8 @@ class Dont_touch(PaiaGame):
             "user_info": [],
             "game_sys_info": {}
         }
-        game_progress["game_sys_info"] = {"view_center_coordinate": [200, -1200]}
+        # game_progress["game_sys_info"] = {"view_center_coordinate": [200, -1200]}
+        game_progress["game_sys_info"] = {"view_center_coordinate": [0, 0]}
         for p in self.game_mode.all_points:
             game_progress["object_list"].append(p.get_progress_data())
 
@@ -146,7 +148,7 @@ class Dont_touch(PaiaGame):
         game_progress["background"].append(self.game_mode.end_point.get_progress_data())
         # rect
         # game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 860, 560))
-        game_progress["background"].append(create_image_view_data("bg_img", -200, 1200, 800, 800))
+        game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 800, 800))
         p = self.game_mode.trnsfer_box2d_to_pygame((0, 0))
         # text
         game_progress["toggle"].append(
@@ -159,30 +161,30 @@ class Dont_touch(PaiaGame):
             if car["is_running"]:
                 game_progress["object_list"].append(
                     create_line_view_data("l_sensor", car["center"][0], car["center"][1],
-                                          self.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[0],
-                                          self.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[1],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[0],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[1],
                                           "#FFFF00", 5))
 
                 game_progress["object_list"].append(
                     create_line_view_data("l_top_sensor", car["center"][0], car["center"][1],
-                                          self.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[0],
-                                          self.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[1],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[0],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[1],
                                           "#FFFF00", 5))
 
                 game_progress["object_list"].append(
                     create_line_view_data("r_top_sensor", car["center"][0], car["center"][1],
-                                          self.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[0],
-                                          self.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[1],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[0],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[1],
                                           "#21A1F1", 5))
                 game_progress["object_list"].append(
                     create_line_view_data("r_sensor", car["center"][0], car["center"][1],
-                                          self.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[0],
-                                          self.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[1],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[0],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[1],
                                           "#21A1F1", 5))
                 game_progress["object_list"].append(
                     create_line_view_data("f_sensor", car["center"][0], car["center"][1],
-                                          self.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[0],
-                                          self.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[1],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[0],
+                                          self.game_mode.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[1],
                                           "#FF0000", 5))
             else:
                 game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
@@ -290,12 +292,3 @@ class Dont_touch(PaiaGame):
         self.game_mode = MazeMode(self.user_num, self.maze_id + 1, self.game_end_time, self.sensor_num,
                                   self.is_sound)
         self.game_type = "MAZE"
-
-    def trnsfer_box2d_to_pygame(self, coordinate):
-        '''
-        :param coordinate: vertice of body of box2d object
-        :return: center of pygame rect
-        '''
-        return (
-            (coordinate[0] - self.game_mode.pygame_point[0]) * PPM,
-            (self.game_mode.pygame_point[1] - coordinate[1]) * PPM)

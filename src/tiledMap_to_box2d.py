@@ -127,13 +127,6 @@ class TiledMap_box2d:
                              [down_tile_x, down_tile_y], [down_tile_x + 1, down_tile_y]])
         return vertices
 
-    def trnsfer_box2d_to_pygame(self, coordinate):
-        '''
-        :param coordinate: vertice of body of box2d object
-        :return: center of pygame rect
-        '''
-        return (coordinate[0] * PPM, coordinate[1] * PPM)
-
     def load_other_obj(self):
         obj = {"car": None,
                "end_point": None,

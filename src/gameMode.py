@@ -99,7 +99,7 @@ class GameMode(object):
         :param coordinate: vertice of body of box2d object
         :return: center of pygame rect
         '''
-        return ((coordinate[0] - self.pygame_point[0]) * PPM, (self.pygame_point[1] - coordinate[1]) * PPM)
+        return ((coordinate[0] - self.pygame_point[0]) * PPM +200, (self.pygame_point[1] - coordinate[1]) * PPM-1200)
 
     def get_wall_info_v(self, wall_tile):
         wall_tiles = []

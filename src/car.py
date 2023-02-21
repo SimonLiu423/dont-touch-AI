@@ -74,6 +74,8 @@ class Car(pygame.sprite.Sprite):
             self.collide_times += 1
             self.collide_frame = frame
             self.explosion = True
+            return True
+        return False
 
 
     def detect_distance(self, frame, walls):

@@ -91,8 +91,8 @@ class MazeMode(GameMode):
                     if contact_edge.contact.touching:
                         contact += 1
                 if contact > 2:
-                    car.collide(self.frame)
-                    self.sound_controller.bomb_sound.play()
+                    if car.collide(self.frame):
+                        self.sound_controller.play_bomb_sound()
         for point in self.all_points:
             point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))
         for world in self.worlds:

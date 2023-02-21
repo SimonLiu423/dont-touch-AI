@@ -6,65 +6,33 @@
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
 不要碰！
+Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪子轉速，達到讓車子前進、後退、轉彎的效果，並且車子上配備有距離感測器，可以讓玩家了解車子與周遭牆壁的距離。玩家需要盡可能減少碰到牆壁的次數，並且走到迷宮的終點。
 
-![](https://i.imgur.com/uDn6Foi.gif)
+![](https://im.ezgif.com/tmp/ezgif-1-c56ed4582f.gif)
 
 
 ---
-# 基礎介紹
-
-## 啟動方式
-
-### 遊戲參數設定
-
-```python
-# main.py
-
-game = Dont_touch.Dont_touch(user_num=1, map=1, time=200, sensor=3, sound="on")`
-```
-
-- `user_num`：玩家數量，目前僅接受1位玩家。
-- `map`：選擇要執行的地圖編號，從 1 開始，目前遊戲中有六張地圖。
-
-- `time`：遊戲結束時間，單位為 FPS ，時間到會強制結束遊戲。
-- `sensor`：感測器的數量，可以選擇 3 或 5 個。區別在於是否有右前方/左前方的感測器。
-
-- `sound`：可輸入 "on" 或是 "off" ，控制是否播放遊戲音效。
-
-## 玩法
-
-- 使用鍵盤 上、下、左、右 (1P)控制車子
-
 ## 目標
 
 1. 在遊戲時間截止前到達迷宮的終點，並且盡可能減少碰撞牆壁的次數。
 
-### 通關條件
+### 排名條件
 
-1. 時間結束前，自走車碰到終點，即可過關。
-
-### 失敗條件
-
-1. 時間結束前，自走車尚未走到終點，即算失敗。
+1. 自走車所走的距離。經過的檢查點愈多則排名愈前。
+2. 自走車與牆壁碰撞次數。若兩車走經的檢查點數量相同，則碰撞次數少者排名愈前。
+3. 自走車前進速度。若前兩項評分依據街平手，則比較走到最末檢查點時的遊戲時間，愈早走到者排名愈前。
 
 ## 遊戲系統
 
 1. 行動機制
 
     控制左右輪轉速，達到前進、後退、轉彎的目的。
-
-    上鍵(W同)：左右輪固定輸出100
-
-    下鍵(S同)：左右輪固定輸出-100
-
-    左鍵(A同)：右輪輸出增加100
-
-    右鍵(D同)：左輪輸出增加100
+    左輪與右輪的轉速由玩家程式控制，範圍為 -255 ~ 255。 
+   速度為 0 時相當於停在原地，速度為負值實則輪子向後轉，速度為正時輪子向前轉。
 
 2. 感測器
     感測器測量的起點為自走車車身外圍，終點為直線距離上最靠的牆壁，實際距離如圖所示
-    ![](https://i.imgur.com/QUmpOmz.png)
-
+    ![](https://i.imgur.com/WahDo5b.png)
 
 4. 物件大小
     使用Box2D的座標系統，單位為cm，每公分換算為4像素，
@@ -82,11 +50,10 @@ game = Dont_touch.Dont_touch(user_num=1, map=1, time=200, sensor=3, sound="on")`
 ---
 
 # 進階說明
-
-## 使用ＡＩ玩遊戲
+## 運行於 PAIA Desktop
 
 ```bash
-python -m mlgame -i ml/ml_play_template.py ./ --map 1 --game_type MAZE --user_num 6 --time_to_play 450 --sensor_num 5 --sound off
+python -m mlgame -f 60 -i games/dont_touch/ml/ml_play.py -i games/dont_touch/ml/ml_play_manual.py games/dont_touch --time_to_play 1800 --map 2 --sound on
 ```
 
 ## ＡＩ範例
@@ -187,27 +154,13 @@ class MLPlay:
 
 - 最後結果會顯示在console介面中，若是PAIA伺服器上執行，會回傳下列資訊到平台上。
 
-```json
-{
-    "frame_used": 121, 
-    "state": "FINISH", 
-    "attachment": [
-        {
-        "player": "2P", 
-        "rank": 1, 
-        "used_frame": 107, 
-        "check_points": 0
-        }, 
-        {
-        "player": "1P", 
-        "rank": 2, 
-        "used_frame": 121, 
-        "check_points": 0
-        }
-    ]
-}
+|player|rank|frame_limit|used_frame|frame_percent|
+|-|-|-|-|-|
+|1P|1|1200|1136|94.66|
 
-```
+|total_checkpoints|check_points|remain_points|pass_percent|crush_times|score|
+|-|-|-|-|-|-|
+|8|8|0|100|2|79978.864|
 
 - `frame_used`：表示遊戲使用了多少個frame
 - `state`：表示遊戲結束的狀態
@@ -216,17 +169,17 @@ class MLPlay:
 - `attachment`：紀錄遊戲各個玩家的結果與分數等資訊
     - `player`：玩家編號
     - `rank`：排名
-    - `used_frame`：個別玩家到達終點使用的frame數
+    - `used_frame`：個別玩家到達最後一個檢查點使用的frame數
     - `frame_limit`：該局遊戲所設定的時間上限
     - `frame_percent`：
         ![](https://i.imgur.com/QuI8HmM.png)
     - `total_checkpoints`：該地圖的總檢查點數量
     - `check_points`：玩家通過的檢查點數量
-    - `remain_points`：玩家未通過的檢查點數量
     - `pass_percent`：
         ![](https://i.imgur.com/QuMt5Lu.png)
-
     - `remain_percent`：
         ![](https://i.imgur.com/mym3FVm.png)
+    - `crush_time`：玩家車子碰撞牆壁的次數
+    - `score`：系統依據排名規則所計算之分數，分數愈高者排名愈前
 
 ###### tags: `PAIA GAME`

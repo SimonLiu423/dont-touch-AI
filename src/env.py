@@ -26,8 +26,16 @@ sensor_trans = ((1, 0),
 FPS = 30
 
 '''color'''
+GRAY = "#cccccc"
 WHITE = "#ffffff"
-RED = "#ff0000"
+RED = "#C3305b"
+YELLOW = "#f5d750"
+BLUE = "#3a84c1"
+GREEN = "#50aa82"
+SENSOR_Y = "#ffff83"
+SENSOR_R = "#ed2323"
+SENSOR_B = "#1d92fe"
+CAR_COLOR = [RED, BLUE, GREEN, YELLOW]
 
 '''object size'''
 car_size = (60, 30)
@@ -40,7 +48,7 @@ MAP_DIR = path.join(path.dirname(__file__),  "map")
 
 '''image'''
 BG_IMG = "bg.png"
-BG_URL = "https://github.com/yen900611/dont_touch/blob/master/asset/image/bg.png"
+BG_URL = "https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/bg.png"
 
 LOGO = "logo.png"
-LOGO_URL = "https://github.com/yen900611/dont_touch/blob/master/asset/image/logo.png"
+LOGO_URL = "https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/logo.png"

@@ -138,24 +138,27 @@ class Dont_touch(PaiaGame):
         for wall in self.game_mode.walls:
             vertices = [(wall.body.transform * v) for v in wall.box.shape.vertices]
             vertices = [self.game_mode.trnsfer_box2d_to_pygame(v) for v in vertices]
-            game_progress["object_list"].append(create_polygon_view_data("wall", vertices, "#ffffff"))
+            game_progress["object_list"].append(create_polygon_view_data("wall", vertices, GRAY))
         for wall in self.game_mode.slant_walls:
             vertices = [(wall.body.transform * v) for v in wall.box.shape.vertices]
             vertices = [self.game_mode.trnsfer_box2d_to_pygame(v) for v in vertices]
-            game_progress["object_list"].append(create_polygon_view_data("wall", vertices, "#ffffff"))
+            game_progress["object_list"].append(create_polygon_view_data("wall", vertices, GRAY))
 
         # end point
         game_progress["background"].append(self.game_mode.end_point.get_progress_data())
         # rect
-        # game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 860, 560))
         game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 800, 800))
-        p = self.game_mode.trnsfer_box2d_to_pygame((0, 0))
         # text
         game_progress["toggle"].append(
-            create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 100, WHITE, font_style="26px Arial"))
+            create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 30, WHITE, font_style="26px Arial"))
+        for i in range(4):
+            game_progress["toggle"].append(create_line_view_data("cage_up", WIDTH-200, 100 + 175*i, WIDTH, 100 +175*i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(create_line_view_data("cage_right", WIDTH, 100 + 175*i, WIDTH, 270 +175*i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(create_line_view_data("cage_left", WIDTH-200, 100 + 175*i, WIDTH-200, 270 +175*i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(create_line_view_data("cage_bottom", WIDTH-200, 270 + 175*i, WIDTH, 270 +175*i, CAR_COLOR[i], 5))
         for car in self.game_mode.car_info:
             game_progress["toggle"].append(
-                create_text_view_data(f"crash time:{car['crash_times']}", 820, 130 + 30*car["id"], WHITE, font_style="26px Arial"))
+                create_text_view_data(f"crash time:{car['crash_times']}", WIDTH - 160, 110 + 175*car["id"], WHITE, font_style="20px Arial"))
             x = 900
 
             if car["is_running"]:
@@ -163,37 +166,37 @@ class Dont_touch(PaiaGame):
                     create_line_view_data("l_sensor", car["center"][0], car["center"][1],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[0],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["l_sensor_value"]["coordinate"])[1],
-                                          "#FFFF00", 5))
+                                          SENSOR_R, 5))
 
                 game_progress["object_list"].append(
                     create_line_view_data("l_top_sensor", car["center"][0], car["center"][1],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[0],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[1],
-                                          "#FFFF00", 5))
+                                          SENSOR_R, 5))
 
                 game_progress["object_list"].append(
                     create_line_view_data("r_top_sensor", car["center"][0], car["center"][1],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[0],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[1],
-                                          "#21A1F1", 5))
+                                          SENSOR_B, 5))
                 game_progress["object_list"].append(
                     create_line_view_data("r_sensor", car["center"][0], car["center"][1],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[0],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["r_sensor_value"]["coordinate"])[1],
-                                          "#21A1F1", 5))
+                                          SENSOR_B, 5))
                 game_progress["object_list"].append(
                     create_line_view_data("f_sensor", car["center"][0], car["center"][1],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[0],
                                           self.game_mode.trnsfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[1],
-                                          "#FF0000", 5))
+                                          SENSOR_Y, 5))
             else:
                 game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
-                                                                     x - 48, 178 + 30 + 105 * (car["id"] // 2),
-                                                                     "#FFFFFF",
-                                                                     "16px Arial"))
+                                                                     WIDTH - 160, 140 + 175*car["id"],
+                                                                     WHITE,
+                                                                     "20px Arial"))
 
         # car
-        for car in self.game_mode.car_info:
+        # for car in self.game_mode.car_info:
             game_progress["object_list"].append(
                 create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 40, 40,
                                        car["angle"])

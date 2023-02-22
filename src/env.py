@@ -28,6 +28,7 @@ FPS = 30
 '''color'''
 GRAY = "#cccccc"
 WHITE = "#ffffff"
+BLACK = "#000000"
 RED = "#C3305b"
 YELLOW = "#f5d750"
 BLUE = "#3a84c1"

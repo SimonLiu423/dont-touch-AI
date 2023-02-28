@@ -30,6 +30,7 @@ class Car(pygame.sprite.Sprite):
         self.sensor_R_T = {"coordinate": (0, 0), "distance": -1}
         self.sensor_L_T = {"coordinate": (0, 0), "distance": -1}
         self.sensor_F = {"coordinate": (0, 0), "distance": -1}
+        self.sensor_B = {"coordinate": (0, 0), "distance": -1}
         self.L_PWM = 0
         self.R_PWM = 0
         self.rect.center = (0, 0)  # pygame
@@ -85,6 +86,7 @@ class Car(pygame.sprite.Sprite):
         self.sensor_R_T = sensor_value["right_top_value"]
         self.sensor_L_T = sensor_value["left_top_value"]
         self.sensor_F = sensor_value["front_value"]
+        self.sensor_B = sensor_value["rear_value"]
 
     def left_move(self, pwm: int):
         if pwm < 0:
@@ -115,6 +117,7 @@ class Car(pygame.sprite.Sprite):
                          "r_t_sensor_value": self.sensor_R_T,
                          "l_t_sensor_value": self.sensor_L_T,
                          "f_sensor_value": self.sensor_F,
+                         "b_sensor_value":self.sensor_B,
                          "L_PWM": self.L_PWM,
                          "R_PWM": self.R_PWM,
                          "end_frame": self.end_frame,

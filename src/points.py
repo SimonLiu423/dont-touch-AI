@@ -75,7 +75,7 @@ class Check_point(Point):
                       "y": self.rect.y,
                       "width": 80,
                       "height": 80,
-                      "color": "#ADADAD",
+                      "color": BLUE,
                       "angle": 0}
         return asset_data
 

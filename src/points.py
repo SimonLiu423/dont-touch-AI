@@ -1,5 +1,6 @@
 import pygame
 from mlgame.game.paia_game import GameResultState, GameStatus
+from mlgame.view.view_model import create_polygon_view_data
 from .env import *
 
 
@@ -24,7 +25,7 @@ class Point(pygame.sprite.Sprite):
 class End_point(Point):
     def __init__(self, game, coordinate):
         Point.__init__(self, game, coordinate)
-        self.rect = pygame.Rect(self.x, self.y, TILESIZE * 3, TILESIZE * 3)
+        self.rect = pygame.Rect(self.x, self.y, TILESIZE * 2.1, TILESIZE * 2.1)
 
     def update(self, *args, **kwargs) -> None:
         self.detect_cars_collision()
@@ -45,18 +46,29 @@ class End_point(Point):
         asset_data = {"type": "image",
                       "x": self.rect.x,
                       "y": self.rect.y,
-                      "width": 60,
-                      "height": 60,
+                      "width": self.rect.width,
+                      "height": self.rect.height,
                       "image_id": "logo",
                       "angle": 0}
+        asset_data = {
+        "type": "rect",
+        "name": "e_p",
+        "x": self.rect.x,
+        "y": self.rect.y,
+        "angle": 0,
+        "width": self.rect.width,
+        "height": self.rect.height,
+        "color": BLACK
+        }
         return asset_data
 
 
 class Check_point(Point):
-    def __init__(self, game, coordinate):
-        Point.__init__(self, game, coordinate)
+    def __init__(self, game, vertices):
+        Point.__init__(self, game, vertices[0])
         self.rect = pygame.Rect(self.x, self.y, TILESIZE * 4, TILESIZE * 4)
         self.car_has_hit = []
+        self.vertices = vertices
 
     def update(self, *args, **kwargs) -> None:
         self.detect_cars_collision()
@@ -70,13 +82,11 @@ class Check_point(Point):
                 self.car_has_hit.append(hit)
 
     def get_progress_data(self):
-        asset_data = {"type": "rect",
-                      "x": self.rect.x,
-                      "y": self.rect.y,
-                      "width": 80,
-                      "height": 80,
-                      "color": BLUE,
-                      "angle": 0}
+        # asset_data = {"type": "polygon",
+        #               "name": 'check_point',
+        #               "color": BLACK,
+        #               "points": [{"x": v[0], "y": v[1]} for v in self.vertices]}
+        asset_data = create_polygon_view_data("check_point", [list(v) for v in self.vertices], BLACK)
         return asset_data
 
 

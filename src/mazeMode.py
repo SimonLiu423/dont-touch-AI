@@ -7,7 +7,7 @@ from mlgame.utils.enum import get_ai_name
 from .env import *
 from .gameMode import GameMode
 from .maze_wall import Wall
-# from .points import End_point, Check_point, Outside_point
+from .points import End_point, Check_point, Outside_point
 from .sound_controller import SoundController
 from .tilemap import Map
 from .tiledMap_to_box2d import TiledMap_box2d
@@ -55,12 +55,21 @@ class MazeMode(GameMode):
         self.pygame_point = [10, 100]
         map = TiledMap_box2d(path.join(MAP_DIR, self.map_file), 32)
         walls = map.get_wall_info()
+        check_walls = map.get_check_wall_info()
         for wall in walls:
             vertices = map.transfer_to_box2d(wall)
             for world in self.worlds:
                 wall = Wall(self, vertices, world)
                 if self.worlds.index(world) == 0:
                     self.walls.add(wall)
+        for check_wall in check_walls:
+            vertices = map.transfer_to_box2d(check_wall)
+            vertices = [self.trnsfer_box2d_to_pygame(v) for v in vertices]
+            cw = Check_point(self, vertices)
+            self.all_points.add(cw)
+            # print(vertices)
+            self.check_point_num += 1
+        print(self.check_point_num)
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -137,9 +146,9 @@ class MazeMode(GameMode):
     def _init_world(self, user_no: int):
         self.contact_man = Box2D.b2ContactManager()
         for i in range(self.user_num):
-            self.worlds.append(Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener))
+            self.worlds.append(Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False,
+                                              contactListener=self.contact_man.contactListener))
         # self.world = Box2D.b2.world(gravity=(0, 0), doSleep=True, CollideConnected=False, contactListener=self.contact_man.contactListener)
-
 
     def _is_game_end(self):
         """

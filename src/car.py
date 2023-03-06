@@ -45,13 +45,15 @@ class Car(pygame.sprite.Sprite):
     def update(self, commands):
         self.image = pygame.transform.rotate(self.origin_image, (self.body.angle * 180 / math.pi) % 360)
         self.rect = self.image.get_rect()
-        self.image_name = f"car_0{self.car_no+1}"
         if self.explosion:
             self.image_name = f"regularExplosion0{self.image_num // 10}"
             self.image_num += 1
+            self.size = (80, 80)
             if self.image_num == 60:
                 self.image_num = 9
                 self.explosion = False
+                self.image_name = f"car_0{self.car_no+1}"
+                self.size = (40, 40)
         if self.is_running and commands != None:
             if commands['right_PWM'] > 255:
                 self.R_PWM = 255

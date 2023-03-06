@@ -195,11 +195,9 @@ class GameMode(object):
         o = obj["end_point"]
         self.end_point = End_point(self, (o[1], o[0]))
         self.check_point_num += 1
-        o = obj["check_point"]
-        for p in o:
-            check_point = Check_point(self, (p[1], p[0]))
-            self.check_point_num += 1
-            self.check_points.append(check_point.get_info()["coordinate"])
+        # o = obj["check_point"]
+        # print(o)
+            # self.check_point_num += 1
         o = obj["car"]
         if o[2] == 6 or o[2] == 10:
             for world in self.worlds:

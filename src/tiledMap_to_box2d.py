@@ -44,7 +44,7 @@ class TiledMap_box2d:
                     passed.append(j)
                     j += 1
                     if (self.data[j][0] == self.data[last_tile][0] and
-                            self.data[j][1] == self.data[last_tile][1] + 1):  # 檢查橫向有沒有延伸的積木
+                            self.data[j][1] == self.data[last_tile][1] + 1 and self.data[j][2] == 1):  # 檢查橫向有沒有延伸的積木
                         type = 'h'
                     else:
                         type = 'v'
@@ -97,11 +97,6 @@ class TiledMap_box2d:
                 passed.append(j)
                 j += 1
                 continue
-        # i = 0
-        # for i in range(len(wall_tiles)):
-        #     print(wall_tiles[i])
-        #     i += 1
-        # print(i)
         return wall_tiles
 
     def transfer_to_box2d(self, wall: list):
@@ -144,6 +139,101 @@ class TiledMap_box2d:
                 obj["check_point"].append([self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]])
                 # obj["check_point"].append(self.data[i])
         return obj
+
+    def get_check_wall_info(self):
+        end = []
+        for i in self.data:
+            if i[2] == 8:
+                end.append(self.data.index(i))
+
+        wall_tiles = []
+        passed = []
+        j = 0
+        first_tile = -1
+        last_tile = -1  # 前一顆tile
+        type = ''
+        while len(passed) < len(self.data):
+            if j in passed:
+                j += 1
+                if j == len(self.data):
+                    j = 0
+                continue
+            if self.data[j][2] == 8:
+                if first_tile == -1:  # a new wall
+                    first_tile = j  # index
+                    last_tile = j
+                    passed.append(j)
+                    end.remove(j)
+                    j += 1
+                    if (self.data[j][0] == self.data[last_tile][0] and
+                            self.data[j][1] == self.data[last_tile][1] + 1 and
+                            self.data[j][2] == 8):  # 檢查橫向有沒有延伸的積木
+                        type = 'h'
+                    else:
+                        type = 'v'
+                    continue
+                elif type == 'h':  # 橫向積木
+                    if (self.data[j][0] == self.data[last_tile][0] and
+                            self.data[j][1] == self.data[last_tile][1] + 1):
+                        last_tile = j
+                        passed.append(j)
+                        if j == end[-1]:
+                            wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                            end.remove(j)
+                            j = 0
+                            first_tile = -1
+                            continue
+                        else:
+                            end.remove(j)
+                            j += 1
+                            continue
+                    else:
+                        wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                        j = 0
+                        first_tile = -1
+                elif type == 'v':  # 縱向積木
+                    if (self.data[j][1] == self.data[last_tile][1] and
+                            self.data[j][0] == self.data[last_tile][0] + 1):
+                        last_tile = j
+                        passed.append(j)
+                        if j == end[-1]:
+                            wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                            end.remove(j)
+                            j = 0
+                            first_tile = -1
+                            continue
+                        else:
+                            end.remove(j)
+                            j += 1
+                            continue
+                    elif (self.data[j][0] > self.data[last_tile][0] + 1):
+                        wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                        j = 0
+                        first_tile = -1
+                    elif j == end[-1]:
+                        wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                        j = 0
+                        first_tile = -1
+                        continue
+                    else:
+                        j += 1
+                        if j == end[-1]:
+                            wall_tiles.append([self.data[first_tile], self.data[last_tile]])
+                            end.remove(j)
+                            j = 0
+                            first_tile = -1
+                            continue
+                        continue
+                else:
+                    continue
+            else:
+                passed.append(j)
+                if j == len(self.data) - 1:
+                    j = 0
+                    continue
+                j += 1
+                continue
+        return wall_tiles
 
     def print_data(self):
         print("width", self.width)

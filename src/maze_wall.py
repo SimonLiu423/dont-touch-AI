@@ -69,3 +69,23 @@ class SlantWall(Wall):
         self.body = world.CreateKinematicBody(position = (0, 0))
         self.box = self.body.CreatePolygonFixture(vertices = vertices)
         pass
+
+class CheckWall(pygame.sprite.Sprite):
+    def __init__(self, left, top, width, height, game):
+        pygame.sprite.Sprite.__init__(self)
+        self.game = game
+        self.rect = pygame.Rect(left, top, width, height)
+        self.car_has_hit = []
+
+    def update(self) -> None:
+        self.detect_cars_collision()
+
+    def detect_cars_collision(self):
+        hits = pygame.sprite.spritecollide(self, self.game.cars, False)
+        for hit in hits:
+            if hit.status and hit not in self.car_has_hit:
+                hit.check_point += 1
+                hit.end_frame = self.game.frame
+                self.car_has_hit.append(hit)
+        pass
+

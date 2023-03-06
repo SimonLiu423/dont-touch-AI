@@ -225,9 +225,11 @@ class Dont_touch(PaiaGame):
         # car
         # for car in self.game_mode.car_info:
             game_progress["object_list"].append(
-                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], 40, 40,
+                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], car["size"][0], car["size"][1],
                                        car["angle"])
             )
+        # for car in self.game_mode.cars:
+        #     game_progress["object_list"].append(create_rect_view_data("car", car.rect.x, car.rect.y, car.rect.width, car.rect.height, BLACK, 0))
 
         return game_progress
 

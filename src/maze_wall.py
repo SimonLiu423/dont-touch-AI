@@ -19,7 +19,7 @@ class Wall(pygame.sprite.Sprite):
         self.body = world.CreateKinematicBody(position = (0, 0))
         self.box = self.body.CreatePolygonFixture(box = ((TILESIZE/ (2*PPM), TILESIZE/ (2*PPM))), vertices = vertices)
         vertices = [(self.body.transform * v) for v in self.box.shape.vertices]
-        self.vertices = [self.game.trnsfer_box2d_to_pygame(v) for v in vertices]
+        self.vertices = [self.game.transfer_box2d_to_pygame(v) for v in vertices]
         # print(self.vertices)
         self.rect = pygame.Rect(self.vertices[2], (self.vertices[0][0] - self.vertices[2][0], self.vertices[0][1]-self.vertices[1][1]))
 

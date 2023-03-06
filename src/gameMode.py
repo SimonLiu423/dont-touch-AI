@@ -94,7 +94,7 @@ class GameMode(object):
             rank_user.append(self.eliminated_user[result[i]])
         return rank_user
 
-    def trnsfer_box2d_to_pygame(self, coordinate):
+    def transfer_box2d_to_pygame(self, coordinate):
         '''
         :param coordinate: vertice of body of box2d object
         :return: center of pygame rect
@@ -193,7 +193,8 @@ class GameMode(object):
 
     def load_map_object(self, obj):
         o = obj["end_point"]
-        self.end_point = End_point(self, (o[1], o[0]))
+        x, y = self.transfer_box2d_to_pygame((o[1], o[0]))
+        self.end_point = End_point(self, (x, y))
         self.check_point_num += 1
         # o = obj["check_point"]
         # print(o)

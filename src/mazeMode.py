@@ -64,12 +64,11 @@ class MazeMode(GameMode):
                     self.walls.add(wall)
         for check_wall in check_walls:
             vertices = map.transfer_to_box2d(check_wall)
-            vertices = [self.trnsfer_box2d_to_pygame(v) for v in vertices]
-            cw = Check_point(self, vertices)
-            self.all_points.add(cw)
-            # print(vertices)
+            vertices = [self.transfer_box2d_to_pygame(v) for v in vertices]
+            self.cp = Check_point(self, vertices)
+            cp = self.cp
+            self.all_points.add(cp)
             self.check_point_num += 1
-        print(self.check_point_num)
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:
@@ -88,7 +87,7 @@ class MazeMode(GameMode):
         self.command = command
         for car in self.cars:
             car.update(command[get_ai_name(car.car_no)])
-            car.rect.center = self.trnsfer_box2d_to_pygame(car.body.position)
+            car.rect.center = self.transfer_box2d_to_pygame(car.body.position)
             car.detect_distance(self.frame, self.wall_info)
             self.car_info.append(car.get_info())
 
@@ -102,8 +101,6 @@ class MazeMode(GameMode):
                 if contact > 2:
                     if car.collide(self.frame):
                         self.sound_controller.play_bomb_sound()
-        for point in self.all_points:
-            point.rect.x, point.rect.y = self.trnsfer_box2d_to_pygame((point.x, point.y))
         for world in self.worlds:
             world.Step(TIME_STEP, 10, 10)
             world.ClearForces()

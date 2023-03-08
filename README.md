@@ -7,14 +7,13 @@
 
 不要碰！
 Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪子轉速，達到讓車子前進、後退、轉彎的效果，並且車子上配備有距離感測器，可以讓玩家了解車子與周遭牆壁的距離。玩家需要盡可能減少碰到牆壁的次數，並且走到迷宮的終點。
-
-![](https://im.ezgif.com/tmp/ezgif-1-c56ed4582f.gif)
+![](https://i.imgur.com/Rm5QGmC.gif)
 
 
 ---
 ## 目標
 
-1. 在遊戲時間截止前到達迷宮的終點，並且盡可能減少碰撞牆壁的次數。
+在遊戲時間截止前到達迷宮的終點，並且盡可能減少碰撞牆壁的次數。
 
 ### 排名條件
 
@@ -32,11 +31,10 @@ Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪
 
 2. 感測器
     感測器測量的起點為自走車車身外圍，終點為直線距離上最靠的牆壁，實際距離如圖所示
-    ![](https://i.imgur.com/WahDo5b.png)
+    ![](https://i.imgur.com/ZjVxo2P.png)
 
 4. 物件大小
-    使用Box2D的座標系統，單位為cm，每公分換算為4像素，
-    ![](https://i.imgur.com/ghBEVyZ.png)
+    使用Box2D的座標系統，單位為cm，每公分換算為4像素
 
 
     - 自走車 12.5 x 10cm
@@ -50,11 +48,20 @@ Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪
 ---
 
 # 進階說明
-## 運行於 PAIA Desktop
 
-```bash
+## 執行方式
+運行於MLGame之下
+* 搭配[MLGame](https://github.com/PAIA-Playful-AI-Arena/MLGame)執行，請將遊戲放在MLGame/games資料夾中，遊戲資料夾需命名為**Dont_touch**
+```
+# 在 `MLGame` 資料夾中
 python -m mlgame -f 60 -i games/dont_touch/ml/ml_play.py -i games/dont_touch/ml/ml_play_manual.py games/dont_touch --time_to_play 1800 --map 2 --sound on
 ```
+### 遊戲參數
+* `map`：選擇不同的迷宮，目前提供6種迷宮地圖，迷宮編號從1開始，預設為1號地圖。
+* `time_to_play`：限制遊戲總時間，單位為 frame，時間到了之後即使有玩家還沒走出迷宮，遊戲仍然會結束。
+* `sensor`：選擇感測器數量，目前可以選擇4或6個，預設為6。
+* `sound`：音效設定，可選擇"on"或"off"，預設為"off"
+
 
 ## ＡＩ範例
 
@@ -109,7 +116,6 @@ class MLPlay:
     "R_sensor": 5.6, 
     "L_sensor": 4.7, 
     "F_sensor": 87.6, 
-    "B_sensor": 26.5
     "L_T_sensor": -1, 
     "R_T_sensor": -1, 
     "end_x": 12.5,
@@ -131,7 +137,6 @@ class MLPlay:
 * `R_sensor`：玩家自己車子右邊超聲波感測器的值，資料型態為數值
 * `L_sensor`：玩家自己車子左邊超聲波感測器的值，資料型態為數值
 * `F_sensor`：玩家自己車子前面超聲波感測器的值，資料型態為數值
-* `B_sensor`：玩家自己車子後方超聲波感測器的值，資料型態為數值
 * `L_T_sensor`：玩家自己車子左前超聲波感測器的值，資料型態為數值，單位是公分。
 * `R_T_sensor`：玩家自己車子右前超聲波感測器的值，資料型態為數值
 * `end_x`：終點x座標，該座標系統原點位於迷宮左上角，x軸向右為正。

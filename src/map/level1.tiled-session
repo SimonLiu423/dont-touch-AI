@@ -74,8 +74,8 @@
             "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1281.1383296952058,
-                "y": 1281.138329695206
+                "x": 1210.768857627941,
+                "y": 1421.877273829736
             }
         },
         "level_5.tmj": {
@@ -99,7 +99,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 1281.25,
-                "y": 1281.25
+                "y": 1256.25
             }
         },
         "tile.tsx": {
@@ -113,22 +113,22 @@
     "map.tileWidth": 64,
     "map.width": 40,
     "openFiles": [
-        "level_7.tmj",
         "level_1.tmj",
         "level_2.tmj",
         "level_3.tmj",
         "level_4.tmj",
         "level_5.tmj",
-        "level_6.tmj"
+        "level_6.tmj",
+        "level_7.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
-        "level_7.tmj",
         "level_1.tmj",
         "level_2.tmj",
         "level_3.tmj",
         "level_4.tmj",
         "level_5.tmj",
+        "level_7.tmj",
         "level_6.tmj",
         "lecel_6.tmj",
         "tile.tsx",

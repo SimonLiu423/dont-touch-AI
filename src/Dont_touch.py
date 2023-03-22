@@ -61,7 +61,7 @@ class Dont_touch(PaiaGame):
                                                         "B_sensor":car["b_sensor_value"]["distance"],
                                                         "L_T_sensor": car["l_t_sensor_value"]["distance"],
                                                         "R_T_sensor": car["r_t_sensor_value"]["distance"],
-                                                        "crash_times": car["crash_times"],
+                                                        "crash_count": car["crash_times"],
                                                         "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
                                                         "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
                                                         "check_points": self.game_mode.check_points
@@ -131,10 +131,14 @@ class Dont_touch(PaiaGame):
         }
         # game_progress["game_sys_info"] = {"view_center_coordinate": [200, -1200]}
         game_progress["game_sys_info"] = {"view_center_coordinate": [0, 0]}
+        game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 800, 800))
         for p in self.game_mode.all_points:
             game_progress["object_list"].append(p.get_progress_data())
 
         game_progress["background"].append(create_rect_view_data("info_board", 800, 0, 200, 800, BLACK))
+        # for i in range(0, 810, 20):
+        #     game_progress["background"].append(create_line_view_data("tile",i, 0, i, 800, LIGHT_BLUE))
+        #     game_progress["background"].append(create_line_view_data("tile",0, i, 800, i, LIGHT_BLUE))
 
         # wall
         for wall in self.game_mode.walls:
@@ -160,7 +164,7 @@ class Dont_touch(PaiaGame):
             game_progress["toggle"].append(create_line_view_data("cage_bottom", WIDTH-200, 270 + 175*i, WIDTH, 270 +175*i, CAR_COLOR[i], 5))
         for car in self.game_mode.car_info:
             game_progress["toggle"].append(
-                create_text_view_data(f"crash time:{car['crash_times']}", WIDTH - 160, 110 + 175*car["id"], WHITE, font_style="20px Arial"))
+                create_text_view_data(f"crash count:{car['crash_times']}", WIDTH - 160, 110 + 175*car["id"], WHITE, font_style="20px Arial"))
 
             if car["is_running"]:
                 # line
@@ -201,6 +205,13 @@ class Dont_touch(PaiaGame):
                                           self.game_mode.transfer_box2d_to_pygame(car["f_sensor_value"]["coordinate"])[
                                               1],
                                           SENSOR_Y, 5))
+                game_progress["object_list"].append(
+                    create_line_view_data("b_sensor", car["center"][0], car["center"][1],
+                                          self.game_mode.transfer_box2d_to_pygame(car["b_sensor_value"]["coordinate"])[
+                                              0],
+                                          self.game_mode.transfer_box2d_to_pygame(car["b_sensor_value"]["coordinate"])[
+                                              1],
+                                          SENSOR_Y, 5))
                 # sensor value
                 game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(car["angle"])+car["center"][0]-25, 60 * math.cos(car["angle"])+car["center"][1]-10, 50, 20, BLACK)) # behind
                 game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"])+car["center"][0]-25, -60 * math.cos(-car["angle"])+car["center"][1]-10, 50, 20, BLACK)) # front
@@ -231,7 +242,7 @@ class Dont_touch(PaiaGame):
         # for car in self.game_mode.cars:
         #     game_progress["object_list"].append(create_rect_view_data("car", car.rect.x, car.rect.y, car.rect.width, car.rect.height, BLACK, 0))
 
-        return game_progress
+        return game_progress 
 
     @check_game_result
     def get_game_result(self):

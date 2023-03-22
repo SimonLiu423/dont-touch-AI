@@ -1,5 +1,9 @@
 {
-    "activeFile": "level_5.tmj",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level_6.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -35,11 +39,11 @@
             }
         },
         "level_1.tmj": {
-            "scale": 0.25,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1284,
-                "y": 1284
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
             }
         },
         "level_1.tmx": {
@@ -51,43 +55,51 @@
             }
         },
         "level_2.tmj": {
-            "scale": 0.2111,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1283.7517764092847,
-                "y": 1283.7517764092847
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
             }
         },
         "level_3.tmj": {
-            "scale": 0.2619921875,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1282.480990010437,
-                "y": 1282.480990010437
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
             }
         },
         "level_4.tmj": {
-            "scale": 0.2619921875,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1282.480990010437,
-                "y": 1282.480990010437
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
             }
         },
         "level_5.tmj": {
-            "scale": 0.2619921875,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1284.3894438646191,
-                "y": 1284.3894438646191
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
             }
         },
         "level_6.tmj": {
-            "scale": 0.2619921875,
+            "scale": 0.24158203124999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1282.480990010437,
-                "y": 1282.480990010437
+                "x": 1281.1383296952058,
+                "y": 1281.138329695206
+            }
+        },
+        "level_7.tmj": {
+            "scale": 0.24,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1281.25,
+                "y": 1281.25
             }
         },
         "tile.tsx": {
@@ -95,9 +107,15 @@
             "scaleInEditor": 1
         }
     },
+    "map.height": 40,
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 40,
     "openFiles": [
-        "level_2.tmj",
+        "level_7.tmj",
         "level_1.tmj",
+        "level_2.tmj",
         "level_3.tmj",
         "level_4.tmj",
         "level_5.tmj",
@@ -105,12 +123,13 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
-        "level_2.tmj",
+        "level_7.tmj",
         "level_1.tmj",
+        "level_2.tmj",
         "level_3.tmj",
         "level_4.tmj",
-        "level_6.tmj",
         "level_5.tmj",
+        "level_6.tmj",
         "lecel_6.tmj",
         "tile.tsx",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/test/src/map/level_2.tmj",

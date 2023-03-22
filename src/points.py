@@ -59,14 +59,17 @@ class Check_point(Point):
         self.rect = pygame.Rect(vertices[0][0], vertices[0][1], abs(vertices[2][0] - vertices[1][0]), abs(vertices[2][1]-vertices[1][1]))
         self.car_has_hit = []
         self.vertices = vertices
+        self.color = YELLOW
 
     def update(self, *args, **kwargs) -> None:
         # print(self.rect)
+        self.color = YELLOW
         self.detect_cars_collision()
 
     def detect_cars_collision(self):
         hits = pygame.sprite.spritecollide(self, self.game.cars, False)
         for hit in hits:
+            self.color = GREEN
             if hit.status and hit not in self.car_has_hit:
                 hit.check_point += 1
                 hit.end_frame = self.game.frame
@@ -81,7 +84,7 @@ class Check_point(Point):
         #               "width": self.rect.width,
         #               "height": self.rect.height,
         #               "color": YELLOW}
-        asset_data = create_polygon_view_data("check_point", [list(v) for v in self.vertices], BLACK)
+        asset_data = create_polygon_view_data("check_point", [list(v) for v in self.vertices], self.color)
         return asset_data
 
 

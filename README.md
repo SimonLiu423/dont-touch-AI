@@ -1,4 +1,4 @@
-# Don't Touch
+# Don't Touch README
 
 ![Dont_touch](https://img.shields.io/github/v/tag/yen900611/Dont_touch)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
@@ -6,8 +6,8 @@
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
 不要碰！
-Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪子轉速，達到讓車子前進、後退、轉彎的效果，並且車子上配備有距離感測器，可以讓玩家了解車子與周遭牆壁的距離。玩家需要盡可能減少碰到牆壁的次數，並且走到迷宮的終點。
-![](https://i.imgur.com/Rm5QGmC.gif)
+Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制幽浮的速度，達到讓幽浮前進、後退、轉彎的效果，並且幽浮上配備有距離感測器，可以讓玩家了解幽浮與周遭障礙物的距離。玩家需要盡可能減少碰到牆壁的次數，並且走到迷宮的終點。
+![](https://i.imgur.com/G5Moi7g.gif)
 
 
 ---
@@ -17,9 +17,9 @@ Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪
 
 ### 排名條件
 
-1. 自走車所走的距離。經過的檢查點愈多則排名愈前。
-2. 自走車與牆壁碰撞次數。若兩車走經的檢查點數量相同，則碰撞次數少者排名愈前。
-3. 自走車前進速度。若前兩項評分依據街平手，則比較走到最末檢查點時的遊戲時間，愈早走到者排名愈前。
+1. 幽浮所走的距離。經過的檢查點愈多則排名愈前。
+2. 幽浮與牆壁碰撞次數。若兩台走經的檢查點數量相同，則碰撞次數少者排名愈前。
+3. 幽浮前進速度。若前兩項評分依據皆平手，則比較走到最末檢查點時的遊戲時間，愈早走到者排名愈前。
 
 ## 遊戲系統
 
@@ -31,13 +31,13 @@ Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制車子的輪
 
 2. 感測器
     感測器測量的起點為自走車車身外圍，終點為直線距離上最靠的牆壁，實際距離如圖所示
-    ![](https://i.imgur.com/ZjVxo2P.png)
+    ![](https://i.imgur.com/AghqU7h.png)
 
 4. 物件大小
+
     使用Box2D的座標系統，單位為cm，每公分換算為4像素
 
-
-    - 自走車 12.5 x 10cm
+    - 自走車 10  x 10cm
     - 檢查點 20 x 20cm
     - 終點 15 x 15cm
 4. 座標系統
@@ -97,7 +97,6 @@ class MLPlay:
         """
         Reset the status
         """
-        # print("reset ml script")
         pass
 
 ```
@@ -120,7 +119,7 @@ class MLPlay:
     "R_T_sensor": -1, 
     "end_x": 12.5,
     "end_y": -12.5,
-    "crash_times":1,
+    "crash_count":1,
     "check_points": [(10, 50), (34, 20)]
 }
 
@@ -141,7 +140,7 @@ class MLPlay:
 * `R_T_sensor`：玩家自己車子右前超聲波感測器的值，資料型態為數值
 * `end_x`：終點x座標，該座標系統原點位於迷宮左上角，x軸向右為正。
 * `end_y`：終點y座標，該座標系統原點位於迷宮左上角，y軸向上為正。
-* `crash_times`：玩家此局遊戲中碰撞牆壁的次數，資料型態為數值。
+* `crash_count`：玩家此局遊戲中碰撞牆壁的次數，資料型態為數值。
 * `check_points`:遊戲在必經的地方設置數個檢查點，此資料包含所有檢查點的座標，資料型態為列表。
 
 座標資訊請參考 `座標系統` 章節
@@ -186,7 +185,8 @@ class MLPlay:
         ![](https://i.imgur.com/QuMt5Lu.png)
     - `remain_percent`：
         ![](https://i.imgur.com/mym3FVm.png)
-    - `crush_time`：玩家車子碰撞牆壁的次數
+    - `crash_count`：玩家車子碰撞牆壁的次數
     - `score`：系統依據排名規則所計算之分數，分數愈高者排名愈前
+        - 分數計算規則：`check_points` * 10000 - 10 * `crash_count` - 0.001 * `used_frame`
 
 ###### tags: `PAIA GAME`

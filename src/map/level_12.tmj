@@ -62,7 +62,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"tile.tsx"
+         "source":"v3_tile.tsx"
         }],
  "tilewidth":64,
  "type":"map",

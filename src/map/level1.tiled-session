@@ -42,8 +42,8 @@
             "scale": 0.1683,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2501.485442661913,
-                "y": 1351.7528223410577
+                "x": 1283.4224598930482,
+                "y": 1283.4224598930482
             }
         },
         "level_1.tmx": {
@@ -108,7 +108,7 @@
         },
         "v2_tile.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 0.53
+            "scaleInEditor": 1
         }
     },
     "last.externalTilesetPath": "/Users/yanshaoting/PycharmProjects/MLGame/games/dont_touch/src/map",
@@ -124,8 +124,8 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
-        "v2_tile.tsx",
         "level_1.tmj",
+        "v2_tile.tsx",
         "tile.tsx",
         "level_7.tmj",
         "level_6.tmj",
@@ -138,5 +138,9 @@
         "level_1.tmx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
-    "tileset.lastUsedFormat": "tsx"
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
 }

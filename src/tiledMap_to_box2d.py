@@ -129,13 +129,13 @@ class TiledMap_box2d:
         for i in range(len(self.data)):
             if self.data[i][2] == 1:
                 continue
-            elif self.data[i][2] in (6, 10, 11, 12, 13):
+            elif self.data[i][2] in range(2, 6):
                 # obj["car"] = self.data[i]
                 obj["car"] = [self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]]
-            elif self.data[i][2] == 7:
+            elif self.data[i][2] == 6:
                 obj["end_point"] = [self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]]
                 # obj["end_point"] = self.data[i]
-            elif self.data[i][2] == 8:
+            elif self.data[i][2] == 7:
                 obj["check_point"].append([self.tileHeight - 1 - self.data[i][0], self.data[i][1], self.data[i][2]])
                 # obj["check_point"].append(self.data[i])
         return obj
@@ -143,7 +143,7 @@ class TiledMap_box2d:
     def get_check_wall_info(self):
         end = []
         for i in self.data:
-            if i[2] == 8:
+            if i[2] == 7:
                 end.append(self.data.index(i))
 
         wall_tiles = []
@@ -158,7 +158,7 @@ class TiledMap_box2d:
                 if j == len(self.data):
                     j = 0
                 continue
-            if self.data[j][2] == 8:
+            if self.data[j][2] == 7:
                 if first_tile == -1:  # a new wall
                     first_tile = j  # index
                     last_tile = j
@@ -167,7 +167,7 @@ class TiledMap_box2d:
                     j += 1
                     if (self.data[j][0] == self.data[last_tile][0] and
                             self.data[j][1] == self.data[last_tile][1] + 1 and
-                            self.data[j][2] == 8):  # 檢查橫向有沒有延伸的積木
+                            self.data[j][2] == 7):  # 檢查橫向有沒有延伸的積木
                         type = 'h'
                     else:
                         type = 'v'

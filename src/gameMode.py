@@ -200,22 +200,22 @@ class GameMode(object):
         # print(o)
             # self.check_point_num += 1
         o = obj["car"]
-        if o[2] == 6 or o[2] == 10:
+        if o[2] == 3:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 2)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 13:
+        elif o[2] == 4:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 0.5)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 12:
+        elif o[2] == 2:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 11:
+        elif o[2] == 5:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1.5)
                 self.cars.add(car)

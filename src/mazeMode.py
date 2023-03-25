@@ -78,6 +78,11 @@ class MazeMode(GameMode):
             self.wall_info.append([vertices[3], vertices[0]])
             self.wall_info.append([vertices[2], vertices[3]])
 
+        for car in self.cars:
+            car.rect.center = self.transfer_box2d_to_pygame(car.body.position)
+            car.detect_distance(self.frame, self.wall_info)
+            self.car_info.append(car.get_info())
+
     def update_sprite(self, command):
         '''update the model of game,call this fuction per frame'''
         self.car_info.clear()

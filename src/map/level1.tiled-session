@@ -120,7 +120,7 @@
         },
         "v3_tile.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.57
+            "scaleInEditor": 1.2207
         }
     },
     "last.externalTilesetPath": "/Users/yanshaoting/PycharmProjects/MLGame/games/dont_touch/src/map",
@@ -135,9 +135,9 @@
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "v3_tile.tsx",
         "level_4.tmj",
         "level_3.tmj",
-        "v3_tile.tsx",
         "level_8.tmj",
         "level_1.tmj",
         "v2_tile.tsx",

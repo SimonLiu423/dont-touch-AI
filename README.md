@@ -38,12 +38,10 @@ Don't Touch 是一款基於 MLGame 框架的遊戲，由玩家控制幽浮的速
     使用Box2D的座標系統，單位為cm，每公分換算為4像素
 
     - 自走車 10  x 10cm
-    - 檢查點 20 x 20cm
     - 終點 15 x 15cm
 4. 座標系統
     
-    原點在迷宮區域的左上角，Ｘ軸向右為正，Y軸向上為正。
-    ![](https://i.imgur.com/4dcUjgr.png)
+    原點在迷宮區域的左下角，Ｘ軸向右為正，Y軸向上為正。
 
 ---
 
@@ -160,13 +158,13 @@ class MLPlay:
 
 - 最後結果會顯示在console介面中，若是PAIA伺服器上執行，會回傳下列資訊到平台上。
 
-|player|rank|frame_limit|used_frame|frame_percent|
-|-|-|-|-|-|
-|1P|1|1200|1136|94.66|
+|player|rank|used_frame|
+|-|-|-|
+|1P|1|1136|
 
-|total_checkpoints|check_points|remain_points|pass_percent|crush_times|score|
-|-|-|-|-|-|-|
-|8|8|0|100|2|79978.864|
+|total_checkpoints|check_points|crash_count|score|
+|-|-|-|-|
+|8|8|2|79978.864|
 
 - `frame_used`：表示遊戲使用了多少個frame
 - `state`：表示遊戲結束的狀態
@@ -176,15 +174,8 @@ class MLPlay:
     - `player`：玩家編號
     - `rank`：排名
     - `used_frame`：個別玩家到達最後一個檢查點使用的frame數
-    - `frame_limit`：該局遊戲所設定的時間上限
-    - `frame_percent`：
-        ![](https://i.imgur.com/QuI8HmM.png)
     - `total_checkpoints`：該地圖的總檢查點數量
     - `check_points`：玩家通過的檢查點數量
-    - `pass_percent`：
-        ![](https://i.imgur.com/QuMt5Lu.png)
-    - `remain_percent`：
-        ![](https://i.imgur.com/mym3FVm.png)
     - `crash_count`：玩家車子碰撞牆壁的次數
     - `score`：系統依據排名規則所計算之分數，分數愈高者排名愈前
         - 分數計算規則：`check_points` * 10000 - 10 * `crash_count` - 0.001 * `used_frame`

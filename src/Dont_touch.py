@@ -262,14 +262,14 @@ class Dont_touch(PaiaGame):
                 remain_point = 0
             same_rank = {"player": str(user.car_no + 1) + "P",
                          "rank": self.game_mode.ranked_user.index(user) + 1,
-                         "frame_limit": self.game_end_time,
+                         # "frame_limit": self.game_end_time,
                          "used_frame": user.end_frame,
-                         "frame_percent": round(user.end_frame / self.game_end_time * 100, 3),
+                         # "frame_percent": round(user.end_frame / self.game_end_time * 100, 3),
                          "total_checkpoints": self.game_mode.check_point_num,
                          "check_points": user.check_point,
-                         "remain_points": remain_point,
-                         "pass_percent": pass_percent,
-                         "crush_times": user.collide_times,
+                         # "remain_points": remain_point,
+                         # "pass_percent": pass_percent,
+                         "crash_count": user.collide_times,
                          "score": 10000 * user.check_point - 0.001 * user.end_frame - 10 * user.collide_times
                          }
             rank.append(same_rank)

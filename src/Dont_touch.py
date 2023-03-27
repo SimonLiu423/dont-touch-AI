@@ -1,9 +1,11 @@
 import math
+
 from mlgame.game.paia_game import PaiaGame
 from mlgame.utils.enum import get_ai_name
 from mlgame.view.decorator import check_game_progress, check_game_result
 from mlgame.view.view_model import create_text_view_data, create_asset_init_data, create_image_view_data, \
     create_line_view_data, Scene, create_polygon_view_data, create_rect_view_data
+
 from .mazeMode import MazeMode
 from .sound_controller import *
 
@@ -27,7 +29,7 @@ class Dont_touch(PaiaGame):
         self.is_running = self.isRunning()
         self.map_width = self.game_mode.map.width
         self.map_height = self.game_mode.map.height
-        self.scene = Scene(WIDTH, HEIGHT, "#08142b", 0,0)
+        self.scene = Scene(WIDTH, HEIGHT, "#08142b", 0, 0)
         self.origin_car_pos = [0, 0]
 
     # self.origin_car_pos = self.game_mode.car_info[0]["center"]
@@ -58,7 +60,7 @@ class Dont_touch(PaiaGame):
                                                         "R_sensor": car["r_sensor_value"]["distance"],
                                                         "L_sensor": car["l_sensor_value"]["distance"],
                                                         "F_sensor": car["f_sensor_value"]["distance"],
-                                                        "B_sensor":car["b_sensor_value"]["distance"],
+                                                        "B_sensor": car["b_sensor_value"]["distance"],
                                                         "L_T_sensor": car["l_t_sensor_value"]["distance"],
                                                         "R_T_sensor": car["r_t_sensor_value"]["distance"],
                                                         "crash_count": car["crash_times"],
@@ -106,11 +108,12 @@ class Dont_touch(PaiaGame):
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
         for i in range(self.user_num):
             game_info["assets"].append(
-                create_asset_init_data(f"car_0{i+1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i+1}.png"), f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i+1}.png"))
+                create_asset_init_data(f"car_0{i + 1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i + 1}.png"),
+                                       f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i + 1}.png"))
         for i in range(0, 6):
             game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
-                                                              f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i+1}.png"))
+                                                              f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i + 1}.png"))
 
         return game_info
 
@@ -158,13 +161,19 @@ class Dont_touch(PaiaGame):
         game_progress["toggle"].append(
             create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 30, WHITE, font_style="26px Arial"))
         for i in range(4):
-            game_progress["toggle"].append(create_line_view_data("cage_up", WIDTH-200, 100 + 175*i, WIDTH, 100 +175*i, CAR_COLOR[i], 5))
-            game_progress["toggle"].append(create_line_view_data("cage_right", WIDTH, 100 + 175*i, WIDTH, 270 +175*i, CAR_COLOR[i], 5))
-            game_progress["toggle"].append(create_line_view_data("cage_left", WIDTH-200, 100 + 175*i, WIDTH-200, 270 +175*i, CAR_COLOR[i], 5))
-            game_progress["toggle"].append(create_line_view_data("cage_bottom", WIDTH-200, 270 + 175*i, WIDTH, 270 +175*i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(
+                create_line_view_data("cage_up", WIDTH - 200, 100 + 175 * i, WIDTH, 100 + 175 * i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(
+                create_line_view_data("cage_right", WIDTH, 100 + 175 * i, WIDTH, 270 + 175 * i, CAR_COLOR[i], 5))
+            game_progress["toggle"].append(
+                create_line_view_data("cage_left", WIDTH - 200, 100 + 175 * i, WIDTH - 200, 270 + 175 * i, CAR_COLOR[i],
+                                      5))
+            game_progress["toggle"].append(
+                create_line_view_data("cage_bottom", WIDTH - 200, 270 + 175 * i, WIDTH, 270 + 175 * i, CAR_COLOR[i], 5))
         for car in self.game_mode.car_info:
             game_progress["toggle"].append(
-                create_text_view_data(f"crash count:{car['crash_times']}", WIDTH - 160, 110 + 175*car["id"], WHITE, font_style="20px Arial"))
+                create_text_view_data(f"crash count:{car['crash_times']}", WIDTH - 160, 110 + 175 * car["id"], WHITE,
+                                      font_style="20px Arial"))
 
             if car["is_running"]:
                 # line
@@ -178,17 +187,21 @@ class Dont_touch(PaiaGame):
 
                 game_progress["object_list"].append(
                     create_line_view_data("l_top_sensor", car["center"][0], car["center"][1],
-                                          self.game_mode.transfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[
+                                          self.game_mode.transfer_box2d_to_pygame(
+                                              car["l_t_sensor_value"]["coordinate"])[
                                               0],
-                                          self.game_mode.transfer_box2d_to_pygame(car["l_t_sensor_value"]["coordinate"])[
+                                          self.game_mode.transfer_box2d_to_pygame(
+                                              car["l_t_sensor_value"]["coordinate"])[
                                               1],
                                           SENSOR_R, 5))
 
                 game_progress["object_list"].append(
                     create_line_view_data("r_top_sensor", car["center"][0], car["center"][1],
-                                          self.game_mode.transfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[
+                                          self.game_mode.transfer_box2d_to_pygame(
+                                              car["r_t_sensor_value"]["coordinate"])[
                                               0],
-                                          self.game_mode.transfer_box2d_to_pygame(car["r_t_sensor_value"]["coordinate"])[
+                                          self.game_mode.transfer_box2d_to_pygame(
+                                              car["r_t_sensor_value"]["coordinate"])[
                                               1],
                                           SENSOR_B, 5))
                 game_progress["object_list"].append(
@@ -213,36 +226,76 @@ class Dont_touch(PaiaGame):
                                               1],
                                           SENSOR_Y, 5))
                 # sensor value
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(car["angle"])+car["center"][0]-25, 60 * math.cos(car["angle"])+car["center"][1]-10, 50, 20, BLACK)) # behind
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"])+car["center"][0]-25, -60 * math.cos(-car["angle"])+car["center"][1]-10, 50, 20, BLACK)) # front
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"]+math.pi/4)+car["center"][0]-25, -60 * math.cos(-car["angle"]+math.pi/4)+car["center"][1]-10, 50, 20, BLACK))
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"]+math.pi/2)+car["center"][0]-25, -60 * math.cos(-car["angle"]+math.pi/2)+car["center"][1]-10, 50, 20, BLACK))
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"]-math.pi/4)+car["center"][0]-25, -60 * math.cos(-car["angle"]-math.pi/4)+car["center"][1]-10, 50, 20, BLACK))
-                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"]-math.pi/2)+car["center"][0]-25, -60 * math.cos(-car["angle"]-math.pi/2)+car["center"][1]-10, 50, 20, BLACK))
+                game_progress["toggle_with_bias"].append(
+                    create_rect_view_data("sensor_rect", 60 * math.sin(car["angle"]) + car["center"][0] - 25,
+                                          60 * math.cos(car["angle"]) + car["center"][1] - 10, 50, 20, BLACK))  # behind
+                game_progress["toggle_with_bias"].append(
+                    create_rect_view_data("sensor_rect", 60 * math.sin(-car["angle"]) + car["center"][0] - 25,
+                                          -60 * math.cos(-car["angle"]) + car["center"][1] - 10, 50, 20,
+                                          BLACK))  # front
+                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(
+                    -car["angle"] + math.pi / 4) + car["center"][0] - 25, -60 * math.cos(-car["angle"] + math.pi / 4) +
+                                                                               car["center"][1] - 10, 50, 20, BLACK))
+                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(
+                    -car["angle"] + math.pi / 2) + car["center"][0] - 25, -60 * math.cos(-car["angle"] + math.pi / 2) +
+                                                                               car["center"][1] - 10, 50, 20, BLACK))
+                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(
+                    -car["angle"] - math.pi / 4) + car["center"][0] - 25, -60 * math.cos(-car["angle"] - math.pi / 4) +
+                                                                               car["center"][1] - 10, 50, 20, BLACK))
+                game_progress["toggle_with_bias"].append(create_rect_view_data("sensor_rect", 60 * math.sin(
+                    -car["angle"] - math.pi / 2) + car["center"][0] - 25, -60 * math.cos(-car["angle"] - math.pi / 2) +
+                                                                               car["center"][1] - 10, 50, 20, BLACK))
 
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['b_sensor_value']['distance']}", 60 * math.sin(car["angle"])+car["center"][0]-20, 60 * math.cos(car["angle"])+car["center"][1]-10, SENSOR_Y, font_style="20px Arial"))
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['f_sensor_value']['distance']}", 60 * math.sin(-car["angle"])+car["center"][0]-20, -60 * math.cos(-car["angle"])+car["center"][1]-10, SENSOR_Y, font_style="20px Arial"))
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['r_t_sensor_value']['distance']}", 60 * math.sin(-car["angle"]+math.pi/4)+car["center"][0]-20, -60 * math.cos(-car["angle"]+math.pi/4)+car["center"][1]-10, SENSOR_B, font_style="20px Arial"))
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['r_sensor_value']['distance']}", 60 * math.sin(-car["angle"]+math.pi/2)+car["center"][0]-20, -60 * math.cos(-car["angle"]+math.pi/2)+car["center"][1]-10, SENSOR_B, font_style="20px Arial"))
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['l_t_sensor_value']['distance']}", 60 * math.sin(-car["angle"]-math.pi/4)+car["center"][0]-20, -60 * math.cos(-car["angle"]-math.pi/4)+car["center"][1]-10, SENSOR_R, font_style="20px Arial"))
-                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['l_sensor_value']['distance']}", 60 * math.sin(-car["angle"]-math.pi/2)+car["center"][0]-20, -60 * math.cos(-car["angle"]-math.pi/2)+car["center"][1]-10, SENSOR_R, font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['b_sensor_value']['distance']}",
+                                                                               60 * math.sin(car["angle"]) +
+                                                                               car["center"][0] - 20,
+                                                                               60 * math.cos(car["angle"]) +
+                                                                               car["center"][1] - 10, SENSOR_Y,
+                                                                               font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['f_sensor_value']['distance']}",
+                                                                               60 * math.sin(-car["angle"]) +
+                                                                               car["center"][0] - 20,
+                                                                               -60 * math.cos(-car["angle"]) +
+                                                                               car["center"][1] - 10, SENSOR_Y,
+                                                                               font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['r_t_sensor_value']['distance']}",
+                                                                               60 * math.sin(
+                                                                                   -car["angle"] + math.pi / 4) +
+                                                                               car["center"][0] - 20, -60 * math.cos(
+                        -car["angle"] + math.pi / 4) + car["center"][1] - 10, SENSOR_B, font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['r_sensor_value']['distance']}",
+                                                                               60 * math.sin(
+                                                                                   -car["angle"] + math.pi / 2) +
+                                                                               car["center"][0] - 20, -60 * math.cos(
+                        -car["angle"] + math.pi / 2) + car["center"][1] - 10, SENSOR_B, font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['l_t_sensor_value']['distance']}",
+                                                                               60 * math.sin(
+                                                                                   -car["angle"] - math.pi / 4) +
+                                                                               car["center"][0] - 20, -60 * math.cos(
+                        -car["angle"] - math.pi / 4) + car["center"][1] - 10, SENSOR_R, font_style="20px Arial"))
+                game_progress["toggle_with_bias"].append(create_text_view_data(f"{car['l_sensor_value']['distance']}",
+                                                                               60 * math.sin(
+                                                                                   -car["angle"] - math.pi / 2) +
+                                                                               car["center"][0] - 20, -60 * math.cos(
+                        -car["angle"] - math.pi / 2) + car["center"][1] - 10, SENSOR_R, font_style="20px Arial"))
 
             else:
                 game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
-                                                                     WIDTH - 160, 140 + 175*car["id"],
+                                                                     WIDTH - 160, 140 + 175 * car["id"],
                                                                      WHITE,
                                                                      "20px Arial"))
 
-        # car
-        # for car in self.game_mode.car_info:
+            # car
+            # for car in self.game_mode.car_info:
             game_progress["object_list"].append(
-                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], car["size"][0], car["size"][1],
+                create_image_view_data(car["image"], car["topleft"][0], car["topleft"][1], car["size"][0],
+                                       car["size"][1],
                                        car["angle"])
             )
         # for car in self.game_mode.cars:
         #     game_progress["object_list"].append(create_rect_view_data("car", car.rect.x, car.rect.y, car.rect.width, car.rect.height, BLACK, 0))
 
-        return game_progress 
+        return game_progress
 
     @check_game_result
     def get_game_result(self):

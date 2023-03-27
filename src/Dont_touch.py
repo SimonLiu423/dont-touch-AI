@@ -113,7 +113,7 @@ class Dont_touch(PaiaGame):
         for i in range(0, 6):
             game_info["assets"].append(create_asset_init_data(f"regularExplosion0{i}", 40, 40,
                                                               path.join(ASSET_IMAGE_DIR, f"regularExplosion0{i}.png"),
-                                                              f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/car_0{i + 1}.png"))
+                                                              f"https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/regularExplosion0{i}.png"))
 
         return game_info
 

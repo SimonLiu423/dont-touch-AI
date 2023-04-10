@@ -88,10 +88,15 @@ class GameMode(object):
             user_end_frame.append(car.end_frame)
             user_score.append(car.check_point * 10000 - car.collide_times * 10 - car.end_frame * 0.001)
         rank_user = []  # [sprite]
-
-        result = [user_score.index(x) for x in sorted(user_score, reverse=True)]
-        for i in range(len(result)):
-            rank_user.append(self.eliminated_user[result[i]])
+        while user_score:
+            max_score = max(user_score)
+            max_index = user_score.index(max_score)
+            rank_user.append(self.eliminated_user[max_index])
+            user_score.pop(max_index)
+            self.eliminated_user.pop(max_index)
+        # result = [user_score.index(x) for x in sorted(user_score, reverse=True)]
+        # for i in range(len(result)):
+        #     rank_user.append(self.eliminated_user[result[i]])
         return rank_user
 
     def transfer_box2d_to_pygame(self, coordinate):
@@ -189,7 +194,6 @@ class GameMode(object):
             for user in self.ranked_user:
                 self.result.append(str(user.car_no + 1) + "P:" + str(user.end_frame) + "frame")
             self.x += 1
-            print(self.result)
 
     def load_map_object(self, obj):
         o = obj["end_point"]

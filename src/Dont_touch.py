@@ -106,6 +106,9 @@ class Dont_touch(PaiaGame):
         bg_path = path.join(ASSET_IMAGE_DIR, BG_IMG)
         bg_url = BG_URL
         game_info["assets"].append(create_asset_init_data("bg_img", 600, 600, bg_path, bg_url))
+        bar_path = path.join(ASSET_IMAGE_DIR, BAR_IMG)
+        bar_url = BAR_URL
+        game_info["assets"].append(create_asset_init_data("bar_img", 600, 600, bar_path, bar_url))
         for i in range(self.user_num):
             game_info["assets"].append(
                 create_asset_init_data(f"car_0{i + 1}", 40, 40, path.join(ASSET_IMAGE_DIR, f"car_0{i + 1}.png"),
@@ -138,11 +141,7 @@ class Dont_touch(PaiaGame):
         for p in self.game_mode.all_points:
             game_progress["object_list"].append(p.get_progress_data())
 
-        game_progress["background"].append(create_rect_view_data("info_board", 800, 0, 200, 800, BLACK))
-        # for i in range(0, 810, 20):
-        #     game_progress["background"].append(create_line_view_data("tile",i, 0, i, 800, LIGHT_BLUE))
-        #     game_progress["background"].append(create_line_view_data("tile",0, i, 800, i, LIGHT_BLUE))
-
+        game_progress["background"].append(create_image_view_data("bar_img", 800, 0, 200, 800))
         # wall
         for wall in self.game_mode.walls:
             vertices = [(wall.body.transform * v) for v in wall.box.shape.vertices]
@@ -153,27 +152,21 @@ class Dont_touch(PaiaGame):
             vertices = [self.game_mode.transfer_box2d_to_pygame(v) for v in vertices]
             game_progress["object_list"].append(create_polygon_view_data("wall", vertices, PAIA_B))
 
-        # end point
-        # game_progress["background"].append(self.game_mode.end_point.get_progress_data())
-        # rect
-        # game_progress["background"].append(create_image_view_data("bg_img", 0, 0, 800, 800))
         # text
         game_progress["toggle"].append(
-            create_text_view_data("{0:05d} frames".format(self.frame_count), 820, 30, WHITE, font_style="26px Arial"))
-        for i in range(4):
-            game_progress["toggle"].append(
-                create_line_view_data("cage_up", WIDTH - 200, 100 + 175 * i, WIDTH, 100 + 175 * i, CAR_COLOR[i], 5))
-            game_progress["toggle"].append(
-                create_line_view_data("cage_right", WIDTH, 100 + 175 * i, WIDTH, 270 + 175 * i, CAR_COLOR[i], 5))
-            game_progress["toggle"].append(
-                create_line_view_data("cage_left", WIDTH - 200, 100 + 175 * i, WIDTH - 200, 270 + 175 * i, CAR_COLOR[i],
-                                      5))
-            game_progress["toggle"].append(
-                create_line_view_data("cage_bottom", WIDTH - 200, 270 + 175 * i, WIDTH, 270 + 175 * i, CAR_COLOR[i], 5))
+            create_text_view_data("{0:05d} frames".format(self.frame_count), 822, 38, WHITE, font_style="26px Arial"))
         for car in self.game_mode.car_info:
             game_progress["toggle"].append(
-                create_text_view_data(f"crash count:{car['crash_times']}", WIDTH - 160, 110 + 175 * car["id"], WHITE,
-                                      font_style="20px Arial"))
+                create_text_view_data(f"{car['crash_times']}", WIDTH - 135, 130 + 175 * car["id"], WHITE,
+                                      font_style="25px Arial"))
+
+            game_progress["toggle"].append(
+                create_text_view_data(f"{car['check_point']}", WIDTH - 135, 177 + 175 * car["id"], WHITE,
+                                      font_style="25px Arial"))
+
+            game_progress["toggle"].append(
+                create_text_view_data("{0:04d} frames".format(car["end_frame"]), WIDTH - 142, 224 + 175 * car["id"], WHITE,
+                                      font_style="25px Arial"))
 
             if car["is_running"]:
                 # line

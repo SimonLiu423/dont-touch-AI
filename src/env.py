@@ -55,3 +55,6 @@ BG_URL = "https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/im
 
 LOGO = "logo.png"
 LOGO_URL = "https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/logo.png"
+
+BAR_IMG = "bar.png"
+BAR_URL = "https://raw.githubusercontent.com/yen900611/dont_touch/master/asset/image/bar.png"

@@ -46,12 +46,10 @@ class Car(pygame.sprite.Sprite):
         if self.explosion:
             self.image_name = f"regularExplosion0{self.image_num // 10}"
             self.image_num += 1
-            self.size = (80, 80)
             if self.image_num == 60:
                 self.image_num = 9
                 self.explosion = False
                 self.image_name = f"car_0{self.car_no+1}"
-                self.size = (40, 40)
         self.image = pygame.transform.rotate(self.origin_image, (self.body.angle * 180 / math.pi) % 360)
         self.rect = self.image.get_rect()
         if self.is_running and commands != None:
@@ -109,7 +107,6 @@ class Car(pygame.sprite.Sprite):
                          "size": self.size,  # pygame
                          "topleft": self.rect.topleft,  # pygame
                          "center": self.rect.center,
-                         # "coordinate":(self.body.position[0]-1.145, self.body.position[1]+1.145),
                          "coordinate": (
                              round((self.body.position[0] - 1.145) * 5, 2),
                              round((self.body.position[1] + 1.145) * 5, 2)),
@@ -124,6 +121,7 @@ class Car(pygame.sprite.Sprite):
                          "R_PWM": self.R_PWM,
                          "end_frame": self.end_frame,
                          "image":self.image_name,
-                         "crash_times":self.collide_times
+                         "crash_times":self.collide_times,
+                         "check_point":self.check_point,
                          }
         return self.car_info

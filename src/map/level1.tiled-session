@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_12.tmj",
+    "activeFile": "level_1.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -105,7 +105,7 @@
             "scale": 0.16,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1321.875,
+                "x": 1325,
                 "y": 1240.625
             }
         },
@@ -137,8 +137,8 @@
             "scale": 0.24,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1954.166666666667,
-                "y": 956.2500000000001
+                "x": 1958.333333333333,
+                "y": 960.4166666666669
             }
         },
         "level_2.tmj": {
@@ -227,12 +227,14 @@
     "map.width": 40,
     "openFiles": [
         "v3_tile.tsx",
-        "level_12.tmj"
+        "level_12.tmj",
+        "level_1.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
         "v3_tile.tsx",
         "level_12.tmj",
+        "level_1.tmj",
         "level_11.tmj",
         "level_10.tmj",
         "level_9.tmj",
@@ -241,8 +243,7 @@
         "level_6.tmj",
         "level_5.tmj",
         "level_4.tmj",
-        "level_3.tmj",
-        "level_2.tmj"
+        "level_3.tmj"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",

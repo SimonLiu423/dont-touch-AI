@@ -272,11 +272,11 @@ class Dont_touch(PaiaGame):
                                                                                car["center"][0] - 20, -60 * math.cos(
                         -car["angle"] - math.pi / 2) + car["center"][1] - 10, SENSOR_R, font_style="20px Arial"))
 
-            else:
-                game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
-                                                                     WIDTH - 160, 140 + 175 * car["id"],
-                                                                     WHITE,
-                                                                     "20px Arial"))
+            # else:
+            #     game_progress["toggle"].append(create_text_view_data("{0:05d} frames".format(car["end_frame"]),
+            #                                                          WIDTH - 160, 140 + 175 * car["id"],
+            #                                                          WHITE,
+            #                                                          "20px Arial"))
 
             # car
             # for car in self.game_mode.car_info:

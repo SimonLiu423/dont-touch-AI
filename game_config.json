@@ -1,6 +1,6 @@
 {
   "game_name": "dont_touch",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "url": "https://github.com/yen900611/dont_touch",
   "description": "不要碰！",
   "logo": [
@@ -35,11 +35,11 @@
       "verbose": "感測器數量",
       "type": "int",
       "choices": [
-        3,
-        5
+        4,
+        6
       ],
       "help": "set the number of sensor.",
-      "default": 5
+      "default": 6
     },
     {
       "name": "sound",

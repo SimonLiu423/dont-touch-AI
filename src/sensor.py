@@ -13,6 +13,7 @@ class Sensor():
         self.left_value = {}
         self.left__top_value = {}
         self.front_value = {}
+        self.rear_value = {}
         self.sensor_num = sensor_num
         angle_t = int(angle / 0.5) % 4
         self.sensor_right = world.CreateDynamicBody(
@@ -31,9 +32,10 @@ class Sensor():
 
     def update(self, frame, walls):
         self.front_value = self.sensor_detect(walls, (0, 1))
+        self.rear_value = self.sensor_detect(walls, (0, -1))
         self.right_value = self.sensor_detect(walls, (1, 0))
         self.left_value = self.sensor_detect(walls, (-1, 0))
-        if self.sensor_num == 5:
+        if self.sensor_num == 6:
             self.right_top_value = self.sensor_detect(walls, (1, 1))
             self.left_top_value = self.sensor_detect(walls, (-1, 1))
         else:
@@ -49,7 +51,8 @@ class Sensor():
                 "left_value": self.left_value,
                 "front_value": self.front_value,
                 "right_top_value": self.right_top_value,
-                "left_top_value": self.left_top_value}
+                "left_top_value": self.left_top_value,
+                "rear_value":self.rear_value}
 
     def sensor_detect(self, walls, vector):
         car_center = self.car.position

@@ -88,13 +88,18 @@ class GameMode(object):
             user_end_frame.append(car.end_frame)
             user_score.append(car.check_point * 10000 - car.collide_times * 10 - car.end_frame * 0.001)
         rank_user = []  # [sprite]
-
-        result = [user_score.index(x) for x in sorted(user_score, reverse=True)]
-        for i in range(len(result)):
-            rank_user.append(self.eliminated_user[result[i]])
+        while user_score:
+            max_score = max(user_score)
+            max_index = user_score.index(max_score)
+            rank_user.append(self.eliminated_user[max_index])
+            user_score.pop(max_index)
+            self.eliminated_user.pop(max_index)
+        # result = [user_score.index(x) for x in sorted(user_score, reverse=True)]
+        # for i in range(len(result)):
+        #     rank_user.append(self.eliminated_user[result[i]])
         return rank_user
 
-    def trnsfer_box2d_to_pygame(self, coordinate):
+    def transfer_box2d_to_pygame(self, coordinate):
         '''
         :param coordinate: vertice of body of box2d object
         :return: center of pygame rect
@@ -189,34 +194,32 @@ class GameMode(object):
             for user in self.ranked_user:
                 self.result.append(str(user.car_no + 1) + "P:" + str(user.end_frame) + "frame")
             self.x += 1
-            print(self.result)
 
     def load_map_object(self, obj):
         o = obj["end_point"]
-        self.end_point = End_point(self, (o[1], o[0]))
+        x, y = self.transfer_box2d_to_pygame((o[1], o[0]))
+        self.end_point = End_point(self, (x, y))
         self.check_point_num += 1
-        o = obj["check_point"]
-        for p in o:
-            check_point = Check_point(self, (p[1], p[0]))
-            self.check_point_num += 1
-            self.check_points.append(check_point.get_info()["coordinate"])
+        # o = obj["check_point"]
+        # print(o)
+            # self.check_point_num += 1
         o = obj["car"]
-        if o[2] == 6 or o[2] == 10:
+        if o[2] == 3:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 2)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 13:
+        elif o[2] == 4:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 0.5)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 12:
+        elif o[2] == 2:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1)
                 self.cars.add(car)
                 self.car_info.append(car.get_info())
-        elif o[2] == 11:
+        elif o[2] == 5:
             for world in self.worlds:
                 car = Car(world, (o[1], o[0]), self.worlds.index(world), self.sensor_num, 1.5)
                 self.cars.add(car)

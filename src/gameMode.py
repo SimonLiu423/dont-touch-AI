@@ -99,6 +99,12 @@ class GameMode(object):
         #     rank_user.append(self.eliminated_user[result[i]])
         return rank_user
 
+    def pygame_to_box2d(self, coodinate, map_h):
+        '''
+        只用在終點跟檢查點，因為他們不屬於 Box2d 的物件，但需要提供資訊
+        '''
+        return (coodinate[0]/PPM*5,(map_h -  coodinate[1] / PPM)*5)
+
     def transfer_box2d_to_pygame(self, coordinate):
         '''
         :param coordinate: vertice of body of box2d object

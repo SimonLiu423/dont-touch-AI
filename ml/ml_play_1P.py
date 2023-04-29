@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class MLPlay:
@@ -17,8 +18,8 @@ class MLPlay:
         if scene_info["status"] != "GAME_ALIVE":
             return "RESET"
         if pygame.K_UP in keyboard:
-            self.control_list["left_PWM"] = 100
-            self.control_list["right_PWM"] = 100
+            self.control_list["left_PWM"] = 150
+            self.control_list["right_PWM"] = 150
         elif pygame.K_LEFT in keyboard:
             self.control_list["left_PWM"] = -150
             self.control_list["right_PWM"] = 150

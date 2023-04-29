@@ -65,10 +65,10 @@ class MazeMode(GameMode):
         for check_wall in check_walls:
             vertices = map.transfer_to_box2d(check_wall)
             vertices = [self.transfer_box2d_to_pygame(v) for v in vertices]
-            self.cp = Check_point(self, vertices)
-            cp = self.cp
+            cp = Check_point(self, vertices)
             self.all_points.add(cp)
             self.check_point_num += 1
+            self.check_points.append(cp)
         obj = map.load_other_obj()
         self.load_map_object(obj)
         for wall in self.walls:

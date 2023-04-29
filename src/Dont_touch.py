@@ -50,6 +50,10 @@ class Dont_touch(PaiaGame):
     def get_data_from_game_to_player(self):
         scene_info = self.get_scene_info
         player_info = {}
+        end_p = self.game_mode.pygame_to_box2d(self.game_mode.end_point.get_info()["coordinate"], self.map_height/PPM)
+        check_points_coodinate = []
+        for cp in self.game_mode.check_points:
+            check_points_coodinate.append(self.game_mode.pygame_to_box2d(cp.get_info()["coordinate"], self.map_height/PPM))
         for car in self.game_mode.car_info:
             # type of car is dictionary
             player_info[get_ai_name(int(car["id"]))] = {"frame": scene_info["frame"],
@@ -64,9 +68,9 @@ class Dont_touch(PaiaGame):
                                                         "L_T_sensor": car["l_t_sensor_value"]["distance"],
                                                         "R_T_sensor": car["r_t_sensor_value"]["distance"],
                                                         "crash_count": car["crash_times"],
-                                                        "end_x": self.game_mode.end_point.get_info()["coordinate"][0],
-                                                        "end_y": self.game_mode.end_point.get_info()["coordinate"][1],
-                                                        "check_points": self.game_mode.check_points
+                                                        "end_x": end_p[0],
+                                                        "end_y": end_p[1],
+                                                        "check_points": check_points_coodinate
                                                         }
         return player_info
 
@@ -285,8 +289,6 @@ class Dont_touch(PaiaGame):
                                        car["size"][1],
                                        car["angle"])
             )
-        # for car in self.game_mode.cars:
-        #     game_progress["object_list"].append(create_rect_view_data("car", car.rect.x, car.rect.y, car.rect.width, car.rect.height, BLACK, 0))
 
         return game_progress
 

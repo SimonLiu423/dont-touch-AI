@@ -14,7 +14,7 @@ class Point(pygame.sprite.Sprite):
 
     def get_info(self):
         return {
-            "coordinate": ((self.x + 0.5) * 5, (self.y - 0.5) * 5)
+            "coordinate": (self.x, self.y)
         }
 
     def get_progress_data(self):
@@ -62,7 +62,6 @@ class Check_point(Point):
         self.color = YELLOW
 
     def update(self, *args, **kwargs) -> None:
-        # print(self.rect)
         self.color = YELLOW
         self.detect_cars_collision()
 

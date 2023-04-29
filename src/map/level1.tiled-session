@@ -3,13 +3,21 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_1.tmj",
+    "activeFile": "/Users/yanshaoting/Downloads/level_1.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/Users/yanshaoting/Desktop/站存區/test.tsx": {
             "scaleInDock": 1
+        },
+        "/Users/yanshaoting/Downloads/level_1.tmj": {
+            "scale": 0.16,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1325,
+                "y": 1240.625
+            }
         },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json": {
             "scale": 0.2462,
@@ -228,18 +236,18 @@
     "openFiles": [
         "v3_tile.tsx",
         "level_12.tmj",
-        "level_1.tmj"
+        "/Users/yanshaoting/Downloads/level_1.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
+        "v3_tile.tsx",
+        "level_12.tmj",
+        "level_1.tmj",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_9.json",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_11.json",
         "level_8.tmj",
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_8.json",
-        "v3_tile.tsx",
-        "level_12.tmj",
-        "level_1.tmj",
         "level_11.tmj",
         "level_10.tmj",
         "level_9.tmj",

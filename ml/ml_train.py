@@ -83,5 +83,5 @@ print("RMSE=%.2f" % rmse)
 # save model
 if not os.path.exists(os.path.dirname(__file__) + "/save"):
     os.makedirs(os.path.dirname(__file__) + "/save")
-with open(os.path.join(os.path.dirname(__file__), 'save', "model.pickle"), 'wb') as f:
+with open(os.path.join(os.path.dirname(__file__), 'save', "model2.pickle"), 'wb') as f:
     pickle.dump(model, f)

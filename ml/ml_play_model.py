@@ -5,7 +5,7 @@ import pickle
 class MLPlay:
     def __init__(self, *args, **kwargs):
         with open(
-            os.path.join(os.path.dirname(__file__), "save", "model.pickle"), "rb"
+            os.path.join(os.path.dirname(__file__), "save", "model2.pickle"), "rb"
         ) as f:
             self.model = pickle.load(f)
 

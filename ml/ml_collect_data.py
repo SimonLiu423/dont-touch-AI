@@ -9,7 +9,7 @@ class MLPlay:
     def __init__(self, ai_name, *args, **kwargs):
         self.frame = 0
         self.crash = 0
-        self.FRONT_SENSOR_THRESHOLD = 12
+        self.FRONT_SENSOR_THRESHOLD = 11
         self.front_sensor = 0
         self.left_sensor = 0
         self.right_sensor = 0
@@ -25,7 +25,7 @@ class MLPlay:
         MAX_SPEED = 255
         MIN_SPEED = -255
         ACCELERATION = 10
-        TURN_SPEED = 50
+        TURN_SPEED = 40
         WALL_DISTANCE_THRESHOLD = 30
         TURN_SPEED_FACTOR = 3
         ANGLE_RECORD_INTERVAL = 30
@@ -109,9 +109,13 @@ class MLPlay:
         # Return the speed of both left and right wheel as a dictionary
         return control_list
 
-    def stuck(self):
-        if self.front_sensor < self.FRONT_SENSOR_THRESHOLD / 2:
-            return True
+    def stuck(self, turn_right=False):
+        if turn_right:
+            if self.front_sensor < self.FRONT_SENSOR_THRESHOLD:
+                return True
+        else:
+            if self.front_sensor < self.FRONT_SENSOR_THRESHOLD / 2:
+                return True
         if self.left_sensor < self.FRONT_SENSOR_THRESHOLD / 4 and self.left_front_sensor < self.FRONT_SENSOR_THRESHOLD / 4:
             return True
         if self.right_sensor < self.FRONT_SENSOR_THRESHOLD / 4 and self.right_front_sensor < self.FRONT_SENSOR_THRESHOLD / 4:
@@ -126,7 +130,7 @@ class MLPlay:
         """
         Reset the status
         """
-        self.flush_to_file('12', self.crash, self.frame)
+        self.flush_to_file('6', self.crash, self.frame)
         pass
 
     def flush_to_file(self, map_name, crash_cnt, frame_used):

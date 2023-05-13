@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_1.tmj",
+    "activeFile": "/Users/yanshaoting/Downloads/level_1.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -11,12 +11,20 @@
         "/Users/yanshaoting/Desktop/站存區/test.tsx": {
             "scaleInDock": 1
         },
-        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json": {
-            "scale": 0.38,
+        "/Users/yanshaoting/Downloads/level_1.tmj": {
+            "scale": 0.16,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 832.8947368421054,
-                "y": 801.3157894736843
+                "x": 1325,
+                "y": 1240.625
+            }
+        },
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json": {
+            "scale": 0.2462,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 767.6685621445979,
+                "y": 1135.2558895207148
             }
         },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json#迷宮素材": {
@@ -26,7 +34,7 @@
             "scale": 0.20603125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 788.7153041104203,
+                "x": 791.1421204307601,
                 "y": 1109.0550583952677
             }
         },
@@ -53,8 +61,8 @@
             "scale": 0.38653125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 834.3439243269464,
-                "y": 800.7114560595037
+                "x": 1065.8905327835719,
+                "y": 1196.5397364378691
             }
         },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_8.json#迷宮素材": {
@@ -64,8 +72,8 @@
             "scale": 0.38653125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 834.3439243269464,
-                "y": 800.7114560595037
+                "x": 695.933381841701,
+                "y": 1062.0098633680977
             }
         },
         "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_9.json#迷宮素材": {
@@ -137,8 +145,8 @@
             "scale": 0.24,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1958.333333333333,
-                "y": 960.4166666666669
+                "x": 1283.3333333333335,
+                "y": 1277.0833333333335
             }
         },
         "level_2.tmj": {
@@ -193,8 +201,8 @@
             "scale": 0.2345,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1394.456289978678,
-                "y": 1345.4157782515992
+                "x": 1351.8123667377397,
+                "y": 2023.454157782516
             }
         },
         "level_9.tmj": {
@@ -228,22 +236,22 @@
     "openFiles": [
         "v3_tile.tsx",
         "level_12.tmj",
-        "level_1.tmj"
+        "/Users/yanshaoting/Downloads/level_1.tmj"
     ],
     "project": "level1.tiled-project",
     "recentFiles": [
         "v3_tile.tsx",
         "level_12.tmj",
         "level_1.tmj",
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_10.json",
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_9.json",
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_11.json",
+        "level_8.tmj",
+        "/Users/yanshaoting/PycharmProjects/MLGame/games/maze_car/src/map/level_8.json",
         "level_11.tmj",
         "level_10.tmj",
         "level_9.tmj",
-        "level_8.tmj",
-        "level_7.tmj",
-        "level_6.tmj",
-        "level_5.tmj",
-        "level_4.tmj",
-        "level_3.tmj"
+        "level_7.tmj"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",

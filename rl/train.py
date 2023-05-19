@@ -38,7 +38,7 @@ class MLPlay:
             self.agent.save_transition(self.prev_state, self.action, reward, self.env.state, done)
         if self.agent.memory_counter >= 4 * self.agent.batch_size:
             self.loss = self.agent.learn()
-            self.writer.add_scalar('Loss/train', self.loss, self.steps)
+            self.writer.add_scalar('Loss/train', self.loss, self.total_steps)
 
         self.prev_state = self.env.state
         self.action = self.agent.choose_action(self.env.state, epsilon=self.eps)

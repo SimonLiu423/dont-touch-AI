@@ -16,6 +16,7 @@ class EnvWrapper:
         self.scene_info = None
         self.state = None
         self.reward = 0
+        self.new_section = False
 
     def update(self, new_scene, action):
         new_scene["section"] = self.pos_section(new_scene)
@@ -36,6 +37,10 @@ class EnvWrapper:
         section = new_scene["section"]
 
         if self.scene_info is not None and section != self.scene_info["section"]:
+            if self.visited[section] == 0:
+                self.new_section = True
+            else:
+                self.new_section = False
             prev_section = self.scene_info["section"]
             self.visited[prev_section] = 1
 
@@ -65,20 +70,24 @@ class EnvWrapper:
 
         touched = (scene["crash_count"] + 1 == next_scene["crash_count"])
 
+        self.reward = 0
+
         if touched:
-            self.reward = -2
+            self.reward -= 2
             return
 
         if speed["left_PWM"] > 0 and speed["right_PWM"] > 0:
             if not vis and f_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
-                self.reward = 1
-                return
+                self.reward += 1
             else:
-                self.reward = -1
-                return
+                self.reward -= 1
         else:
             self.reward = 0
-            return
+
+        if self.new_section:
+            self.reward += 1
+        else:
+            self.reward -= 0.1
 
     def convert_action(self, action):
         left_action = action // self.action_bins

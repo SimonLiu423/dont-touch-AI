@@ -16,6 +16,7 @@ class DeepQNet:
             learning_rate=2e-4,
             reward_decay=0.99,
             batch_size=32,
+            device='cpu',
     ):
         self.obs_shape = obs_shape
         self.n_actions = n_actions
@@ -28,9 +29,10 @@ class DeepQNet:
         self.init_memory()
         self.memory_counter = 0
         self.learn_step_counter = 0
+        self.device = device
 
-        self.eval_net = qnet(self.obs_shape, n_actions)
-        self.target_net = qnet(self.obs_shape, n_actions)
+        self.eval_net = qnet(self.obs_shape, n_actions).to(device)
+        self.target_net = qnet(self.obs_shape, n_actions).to(device)
         self.target_net.eval()
         self.optimizer = optim.RMSprop(params=self.eval_net.parameters(), lr=self.lr)
 
@@ -39,7 +41,7 @@ class DeepQNet:
             action = np.random.randint(0, self.n_actions)
         else:
             # add batch dim (4, 84, 84) => (1, 4, 84, 84) and predict
-            predict_q = self.eval_net(torch.FloatTensor(state).unsqueeze(0))
+            predict_q = self.eval_net(torch.FloatTensor(state).cpu().unsqueeze(0))
             action = torch.argmax(predict_q, 1).numpy()[0]
         assert type(action) in [int, np.int64], 'action type = {}, shape = {}'.format(action.dtype, action.shape)
         return action
@@ -53,11 +55,11 @@ class DeepQNet:
         else:
             sample_index = np.random.choice(self.memory_size, self.batch_size)
 
-        b_s = torch.FloatTensor(self.memory["s"][sample_index])
-        b_a = torch.LongTensor(self.memory["a"][sample_index])
-        b_r = torch.FloatTensor(self.memory["r"][sample_index])
-        b_s_ = torch.FloatTensor(self.memory["s_"][sample_index])
-        b_d = torch.FloatTensor(self.memory["done"][sample_index])
+        b_s = torch.FloatTensor(self.memory["s"][sample_index]).to(self.device)
+        b_a = torch.LongTensor(self.memory["a"][sample_index]).to(self.device)
+        b_r = torch.FloatTensor(self.memory["r"][sample_index]).to(self.device)
+        b_s_ = torch.FloatTensor(self.memory["s_"][sample_index]).to(self.device)
+        b_d = torch.FloatTensor(self.memory["done"][sample_index]).to(self.device)
 
         predict_q = self.eval_net(b_s).gather(1, b_a)
         target_next_q = self.target_net(b_s_).max(1)[0].view(-1, 1)

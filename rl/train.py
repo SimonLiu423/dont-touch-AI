@@ -14,7 +14,7 @@ class MLPlay:
         self.log_dir = os.path.join(os.path.dirname(__file__), 'logs')
         self.writer = SummaryWriter(self.log_dir)
         self.env = EnvWrapper()
-        self.agent = DeepQNet(self.env.state_shape, self.env.n_actions, QNet)
+        self.agent = DeepQNet(self.env.state_shape, self.env.n_actions, QNet, device='cuda')
         self.episodes = 0
         self.steps = 0
         self.total_steps = 0

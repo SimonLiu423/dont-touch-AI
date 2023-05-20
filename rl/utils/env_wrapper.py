@@ -78,6 +78,9 @@ class EnvWrapper:
             self.reward -= 1
             return
 
+        if vis:
+            self.reward -= 0.5
+
         if speed["left_PWM"] > 0 and speed["right_PWM"] > 0:
             if not vis and f_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
                 self.reward += 0.5

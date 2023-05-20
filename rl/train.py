@@ -19,6 +19,8 @@ class MLPlay:
         self.steps = 0
         self.total_steps = 0
         self.total_rewards = 0
+        self.total_rewards_hist = []
+        self.best_mean_reward = None
         self.loss = None
         self.eps = None
 
@@ -58,6 +60,13 @@ class MLPlay:
         Reset the status
         """
         self.writer.add_scalar("Reward/train", self.total_rewards, self.episodes)
+        self.total_rewards_hist.append(self.total_rewards)
+        if len(self.total_rewards_hist) == 31:
+            self.total_rewards_hist.pop(0)
+            mean_reward = np.mean(self.total_rewards_hist)
+            if self.best_mean_reward is None or mean_reward > self.best_mean_reward:
+                self.best_mean_reward = mean_reward
+                self.agent.save_load_model(save_dir=os.path.dirname(__file__))
         print('\rEpisode: {:3d} | Steps: {}/{} | Reward: {} | Loss : {} | Epsilon: {}'.format(
             self.episodes, self.steps, self.total_steps, self.total_rewards, self.loss, self.eps
         ))

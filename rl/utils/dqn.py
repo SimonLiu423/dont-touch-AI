@@ -41,8 +41,8 @@ class DeepQNet:
             action = np.random.randint(0, self.n_actions)
         else:
             # add batch dim (4, 84, 84) => (1, 4, 84, 84) and predict
-            predict_q = self.eval_net(torch.FloatTensor(state).cpu().unsqueeze(0))
-            action = torch.argmax(predict_q, 1).numpy()[0]
+            predict_q = self.eval_net(torch.FloatTensor(state).unsqueeze(0).to(self.device))
+            action = torch.argmax(predict_q, 1).cpu().numpy()[0]
         assert type(action) in [int, np.int64], 'action type = {}, shape = {}'.format(action.dtype, action.shape)
         return action
 

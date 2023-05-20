@@ -75,7 +75,7 @@ class EnvWrapper:
         self.reward = 0
 
         if touched:
-            self.reward -= 2
+            self.reward -= 1
             return
 
         if speed["left_PWM"] > 0 and speed["right_PWM"] > 0:
@@ -92,8 +92,6 @@ class EnvWrapper:
 
         if self.new_section:
             self.reward += 1
-        else:
-            self.reward -= 0.1
 
     def convert_action(self, action):
         left_action = action // self.action_bins

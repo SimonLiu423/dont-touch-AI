@@ -36,13 +36,15 @@ class EnvWrapper:
         crash_cnt = new_scene["crash_count"]
         section = new_scene["section"]
 
+        self.new_section = False
         if self.scene_info is not None and section != self.scene_info["section"]:
             if self.visited[section] == 0:
                 self.new_section = True
-            else:
-                self.new_section = False
+                self.visited[section] = -1
             prev_section = self.scene_info["section"]
             self.visited[prev_section] = 1
+        elif self.scene_info is None:
+            self.visited[section] = -1
 
         self.update_reward(self.scene_info, action, new_scene)
 

@@ -66,7 +66,7 @@ class MLPlay:
             mean_reward = np.mean(self.total_rewards_hist)
             if self.best_mean_reward is None or mean_reward > self.best_mean_reward:
                 self.best_mean_reward = mean_reward
-                self.agent.save_load_model(save_dir=os.path.dirname(__file__))
+                self.agent.save_load_model(op='save', save_dir=os.path.dirname(__file__))
         print('\rEpisode: {:3d} | Steps: {}/{} | Reward: {} | Loss : {} | Epsilon: {}'.format(
             self.episodes, self.steps, self.total_steps, self.total_rewards, self.loss, self.eps
         ))

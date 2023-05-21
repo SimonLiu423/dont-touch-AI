@@ -33,7 +33,7 @@ class MLPlay:
 
     def update(self, scene_info, keyboard=[], *args, **kwargs):
         self.env.update(scene_info, self.action)
-        self.eps = self.calc_epsilon(self.total_steps)
+        self.eps = self.calc_epsilon(self.total_steps, epsilon_decay=800000)
         self.writer.add_scalar('Epsilon/train/step', self.eps, self.total_steps)
 
         reward = self.env.reward
@@ -57,7 +57,7 @@ class MLPlay:
 
         return self.env.convert_action(self.action)
 
-    def calc_epsilon(self, step, epsilon_max=1, min_epsilon=0.05, epsilon_decay=500000):
+    def calc_epsilon(self, step, epsilon_max=1, min_epsilon=0.05, epsilon_decay=100000):
         return min_epsilon + (epsilon_max - min_epsilon) * np.exp(-step / epsilon_decay)
 
     def reset(self):

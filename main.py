@@ -26,7 +26,7 @@ if __name__ == '__main__':
             scene_info = game.get_data_from_game_to_player()[ai_name]
             commands = {ai_name: mlplay.update(scene_info)}
 
-            game.update(game.get_keyboard_command())
+            game.update(commands)
 
             if render:
                 game_progress_data = game.get_scene_progress_data()

@@ -1,4 +1,6 @@
 import os
+
+import pygame
 import torch
 import torch.nn
 import numpy as np
@@ -7,6 +9,8 @@ from datetime import datetime
 from rl.utils.qnet import QNet
 from rl.utils.dqn import DeepQNet
 from rl.utils.env_wrapper import EnvWrapper
+from src.Dont_touch import Dont_touch
+from mlgame.game.generic import quit_or_esc
 
 
 class MLPlay:
@@ -88,3 +92,27 @@ class MLPlay:
                                                      str(now.day).zfill(2), str(now.hour).zfill(2), str(now.minute).zfill(2))
             model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'autosave', fname)
             torch.save(self.agent.target_net.state_dict(), model_path)
+
+
+if __name__ == '__main__':
+    pygame.init()
+
+    N_MAPS = 12
+    FRAME_LIMIT = 1800
+
+    ai_name = "1P"
+    mlplay = MLPlay(ai_name)
+
+    while True:
+        map_id = np.random.randint(1, N_MAPS)
+        game = Dont_touch(1, map_id, FRAME_LIMIT, 5, "off")
+        print("Training with map {}".format(map_id))
+        while game.is_running and not quit_or_esc():
+            scene_info = game.get_data_from_game_to_player()[ai_name]
+            commands = {ai_name: mlplay.update(scene_info)}
+
+#            if scene_info["status"] in ("GAME_OVER", "GAME_PASS"):
+#                mlplay.reset()
+#                break
+            game.update(game.get_keyboard_command())
+

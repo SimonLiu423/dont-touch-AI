@@ -34,7 +34,7 @@ class MLPlay:
     def update(self, scene_info, keyboard=[], *args, **kwargs):
         self.env.update(scene_info, self.action)
         self.eps = self.calc_epsilon(self.total_steps)
-        self.writer.add_scalar('Epsilon/train', self.eps, self.total_steps)
+        self.writer.add_scalar('Epsilon/train/step', self.eps, self.total_steps)
 
         reward = self.env.reward
         done = scene_info["status"] in ["GAME_PASS", "GAME_OVER"]
@@ -45,7 +45,7 @@ class MLPlay:
             self.agent.save_transition(self.prev_state, self.action, reward, self.env.state, done)
         if self.agent.memory_counter >= 4 * self.agent.batch_size:
             self.loss = self.agent.learn()
-            self.writer.add_scalar('Loss/train', self.loss, self.total_steps)
+            self.writer.add_scalar('Loss/train/step', self.loss, self.total_steps)
 
         self.prev_state = self.env.state
         self.action = self.agent.choose_action(self.env.state, epsilon=self.eps)
@@ -64,7 +64,8 @@ class MLPlay:
         """
         Reset the status
         """
-        self.writer.add_scalar("Reward/train", self.total_rewards, self.total_steps)
+        self.writer.add_scalar("Reward/train/step", self.total_rewards, self.total_steps)
+        self.writer.add_scalar("Reward/train/episode", self.total_rewards, self.episodes)
         self.total_rewards_hist.append(self.total_rewards)
         if len(self.total_rewards_hist) == 31:
             self.total_rewards_hist.pop(0)

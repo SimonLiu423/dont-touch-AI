@@ -12,7 +12,7 @@ from rl.utils.env_wrapper import EnvWrapper
 class MLPlay:
     def __init__(self, ai_name, *args, **kwargs):
         self.log_dir = os.path.join(os.path.dirname(__file__), 'logs')
-        self.writer = SummaryWriter(self.log_dir)
+        self.writer = SummaryWriter()
         self.env = EnvWrapper()
         self.agent = DeepQNet(self.env.state_shape, self.env.n_actions, QNet, device='cuda')
         self.agent.save_load_model(op='load', save_dir=os.path.dirname(__file__))
@@ -31,6 +31,7 @@ class MLPlay:
     def update(self, scene_info, keyboard=[], *args, **kwargs):
         self.env.update(scene_info, self.action)
         self.eps = self.calc_epsilon(self.total_steps)
+        self.writer.add_scalar('Epsilon/train', self.eps, self.total_steps)
 
         reward = self.env.reward
         done = scene_info["status"] in ["GAME_PASS", "GAME_OVER"]

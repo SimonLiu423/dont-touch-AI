@@ -15,8 +15,8 @@ if __name__ == '__main__':
             scene_info = game.get_data_from_game_to_player()[ai_name]
             commands = {ai_name: mlplay.update(scene_info)}
 
-            #            if scene_info["status"] in ("GAME_OVER", "GAME_PASS"):
-            #                mlplay.reset()
-            #                break
+            if scene_info["status"] in ("GAME_OVER", "GAME_PASS"):
+                mlplay.reset()
+                break
             game.update(game.get_keyboard_command())
 

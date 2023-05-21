@@ -16,12 +16,11 @@ if __name__ == '__main__':
             scene_info = game.get_data_from_game_to_player()[ai_name]
             commands = {ai_name: mlplay.update(scene_info)}
 
-            if scene_info["status"] in ("GAME_OVER", "GAME_PASS"):
-                mlplay.reset()
-
-                game_result = game.get_game_result()
-                attachments = game_result['attachment']
-                print(pd.DataFrame(attachments).to_string())
-                break
             game.update(game.get_keyboard_command())
+
+        mlplay.reset()
+
+        game_result = game.get_game_result()
+        attachments = game_result['attachment']
+        print(pd.DataFrame(attachments).to_string())
 

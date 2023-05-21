@@ -1,4 +1,5 @@
 from rl.train import *
+import pandas as pd
 
 if __name__ == '__main__':
     N_MAPS = 12
@@ -17,6 +18,10 @@ if __name__ == '__main__':
 
             if scene_info["status"] in ("GAME_OVER", "GAME_PASS"):
                 mlplay.reset()
+
+                game_result = game.get_game_result()
+                attachments = game_result['attachment']
+                print(pd.DataFrame(attachments).to_string())
                 break
             game.update(game.get_keyboard_command())
 

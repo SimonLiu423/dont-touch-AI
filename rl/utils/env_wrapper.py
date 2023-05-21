@@ -75,7 +75,7 @@ class EnvWrapper:
         self.reward = 0
 
         if touched:
-            self.reward -= 1
+            self.reward -= 5
             return
 
         if vis:

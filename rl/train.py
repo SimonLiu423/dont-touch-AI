@@ -1,6 +1,5 @@
 import os
 
-import pygame
 import torch
 import torch.nn
 import numpy as np
@@ -95,8 +94,6 @@ class MLPlay:
 
 
 if __name__ == '__main__':
-    pygame.init()
-
     N_MAPS = 12
     FRAME_LIMIT = 1800
 

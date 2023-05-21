@@ -61,7 +61,7 @@ class MLPlay:
         """
         Reset the status
         """
-        self.writer.add_scalar("Reward/train", self.total_rewards, self.episodes)
+        self.writer.add_scalar("Reward/train", self.total_rewards, self.total_steps)
         self.total_rewards_hist.append(self.total_rewards)
         if len(self.total_rewards_hist) == 31:
             self.total_rewards_hist.pop(0)

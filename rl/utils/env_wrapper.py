@@ -79,19 +79,21 @@ class EnvWrapper:
             return
 
         if vis:
-            self.reward -= 0.5
+            self.reward -= 0.01
+        else:
 
-        if speed["left_PWM"] > 0 and speed["right_PWM"] > 0:
-            if not vis and f_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
-                self.reward += 0.5
-        elif speed["left_PWM"] < 0 and speed["right_PWM"] < 0:
-            self.reward -= 0.1
-        elif l_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
-            if speed["left_PWM"] < speed["right_PWM"]:
-                self.reward += 0.2
-        elif r_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
-            if speed["left_PWM"] > speed["right_PWM"]:
-                self.reward += 0.2
+            if speed["left_PWM"] > 0 and speed["right_PWM"] > 0:
+                if f_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
+                    self.reward += 0.5
+            elif speed["left_PWM"] < 0 and speed["right_PWM"] < 0:
+                if not vis:
+                    self.reward -= 0.1
+            elif l_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
+                if speed["left_PWM"] < speed["right_PWM"]:
+                    self.reward += 0.2
+            elif r_sensor == max(f_sensor, l_sensor, r_sensor, lt_sensor, rt_sensor):
+                if speed["left_PWM"] > speed["right_PWM"]:
+                    self.reward += 0.2
 
         if self.new_section:
             self.reward += 1

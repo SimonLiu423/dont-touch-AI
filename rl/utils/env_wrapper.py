@@ -59,7 +59,7 @@ class EnvWrapper:
             return
 
         if scene["status"] == "GAME_PASS":
-            self.reward = 5
+            self.reward = 100
             return
 
         speed = self.convert_action(action)

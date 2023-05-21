@@ -7,7 +7,7 @@ class EnvWrapper:
         self.quantize_factor = quantize_factor
         self.interval = map_length / quantize_factor
         self.visited = np.zeros(self.quantize_factor ** 2)
-        self.state_shape = (38,)
+        self.state_shape = (37,)
         self.action_bins = action_bins
         self.n_actions = action_bins * action_bins
         self.MAX_SPEED = 255
@@ -25,7 +25,7 @@ class EnvWrapper:
         frame = new_scene["frame"]
         x = new_scene["x"]
         y = new_scene["y"]
-        angle = new_scene["angle"]
+        # angle = new_scene["angle"]
         r_s = new_scene["R_sensor"]
         l_s = new_scene["L_sensor"]
         f_s = new_scene["F_sensor"]
@@ -49,7 +49,7 @@ class EnvWrapper:
         self.update_reward(self.scene_info, action, new_scene)
 
         self.scene_info = new_scene
-        self.state = np.array([frame, x, y, angle, r_s, l_s, f_s, lt_s, rl_s, end_x, end_y, crash_cnt, section])
+        self.state = np.array([frame, x, y, r_s, l_s, f_s, lt_s, rl_s, end_x, end_y, crash_cnt, section])
         self.state = np.concatenate([self.state, self.visited])
         assert(self.state.shape == self.state_shape)
 

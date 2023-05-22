@@ -18,7 +18,7 @@ class MLPlay:
         self.writer = SummaryWriter()
         self.env = EnvWrapper()
         self.agent = DeepQNet(self.env.state_shape, self.env.n_actions, QNet, device='cuda')
-        self.agent.save_load_model(op='load', save_dir=os.path.dirname(__file__))
+#        self.agent.save_load_model(op='load', save_dir=os.path.dirname(__file__))
         self.episodes = 0
         self.steps = 0
         self.total_steps = 0
@@ -33,7 +33,7 @@ class MLPlay:
 
     def update(self, scene_info, keyboard=[], *args, **kwargs):
         self.env.update(scene_info, self.action)
-        self.eps = self.calc_epsilon(self.total_steps, epsilon_decay=800000)
+        self.eps = self.calc_epsilon(self.total_steps, epsilon_decay=4000000)
         self.writer.add_scalar('Epsilon/train/step', self.eps, self.total_steps)
 
         reward = self.env.reward

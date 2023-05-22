@@ -7,7 +7,7 @@ if __name__ == '__main__':
     N_MAPS = 12
     FRAME_LIMIT = 1800
 
-    render = True
+    render = False 
 
     ai_name = "1P"
     mlplay = MLPlay(ai_name)
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     pygame.init()
     while True:
         map_id = np.random.randint(1, N_MAPS)
-        game = Dont_touch(1, map_id, FRAME_LIMIT, 5, "off")
+        game = Dont_touch(1, map_id, FRAME_LIMIT, 6, "off")
 
         if render:
             scene_init_info_dict = game.get_scene_init_data()
